@@ -32,7 +32,7 @@ public class Process extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
+        free_ground = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -41,19 +41,19 @@ public class Process extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Ground\\free-slot-ground.png")); // NOI18N
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jLabel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        free_ground.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Ground\\free-slot-ground.png")); // NOI18N
+        free_ground.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        free_ground.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jLabel3MouseDragged(evt);
+                free_groundMouseDragged(evt);
             }
         });
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        free_ground.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel3MouseReleased(evt);
+                free_groundMouseReleased(evt);
             }
         });
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 100, 90));
+        getContentPane().add(free_ground, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 100, 90));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Background\\Farm-ground.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -61,22 +61,22 @@ public class Process extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseReleased
+    private void free_groundMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_free_groundMouseReleased
         System.out.println(i++);
         jLabel_plant_satge1 = new JLabel();
         
         jLabel_plant_satge1.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Plant\\Carrot\\Carrot-stage-1.png"));
         jLabel_plant_satge1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        getContentPane().remove(jLabel3);
+        getContentPane().remove(free_ground);
         getContentPane().add(jLabel_plant_satge1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 100, 90), 0);
         
         getContentPane().revalidate();
         getContentPane().repaint();
-    }//GEN-LAST:event_jLabel3MouseReleased
+    }//GEN-LAST:event_free_groundMouseReleased
 
-    private void jLabel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseDragged
+    private void free_groundMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_free_groundMouseDragged
         
-    }//GEN-LAST:event_jLabel3MouseDragged
+    }//GEN-LAST:event_free_groundMouseDragged
 
     /**
      * @param args the command line arguments
@@ -116,7 +116,7 @@ public class Process extends javax.swing.JFrame {
     private int i;
     private static javax.swing.JLabel jLabel_plant_satge1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JLabel free_ground;
     private javax.swing.JLabel jLabel1;
-    private static javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }
