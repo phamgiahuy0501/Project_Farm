@@ -5,9 +5,10 @@
  */
 package processpackage;
 
-import java.io.File;
-import javax.swing.ImageIcon;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
+
 
 /**
  *
@@ -19,8 +20,45 @@ public class Process extends javax.swing.JFrame {
      * Creates new form Process
      */
     public Process() {
-        i = 1;
+        listPoint = new ArrayList<Point>();
+        listGround = new ArrayList<JLabel>();
+        
         initComponents();
+        initFreeGround();
+        
+    }
+    
+    private void initFreeGround() {
+        int i;
+        for (i = 0; i < 4; i++) {
+            JLabel temp_jlabel = new JLabel();
+            
+            temp_jlabel.setIcon(new javax.swing.ImageIcon(FREE_GROUND_PATH));
+            temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+            
+            getContentPane().add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_1.getX(), start_row_1.getY(), 100, 90), 0);
+            
+            listPoint.add(start_row_1);
+            listGround.add(temp_jlabel);
+            
+            start_row_1.set(start_row_1.getX() - STEP_X, start_row_1.getY() + STEP_Y);
+        }
+        
+        for (; i < 8; i++) {
+            JLabel temp_jlabel = new JLabel();
+            
+            temp_jlabel.setIcon(new javax.swing.ImageIcon(FREE_GROUND_PATH));
+            temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+            
+            getContentPane().add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_2.getX(), start_row_2.getY(), 100, 90), 0);
+            
+            listPoint.add(start_row_2);
+            listGround.add(temp_jlabel);
+            
+            start_row_2.set(start_row_2.getX() - STEP_X, start_row_2.getY() + STEP_Y);
+        }
+        getContentPane().validate();
+        getContentPane().repaint();
     }
 
     /**
@@ -32,8 +70,9 @@ public class Process extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        free_ground = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        bag = new javax.swing.JLabel();
+        shop = new javax.swing.JLabel();
+        back_ground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 600));
@@ -41,42 +80,35 @@ public class Process extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        free_ground.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Ground\\free-slot-ground.png")); // NOI18N
-        free_ground.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        free_ground.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                free_groundMouseDragged(evt);
+        bag.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Icon\\Bag-icon.png")); // NOI18N
+        bag.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bagMouseClicked(evt);
             }
         });
-        free_ground.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                free_groundMouseReleased(evt);
-            }
-        });
-        getContentPane().add(free_ground, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 100, 90));
+        getContentPane().add(bag, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Background\\Farm-ground.png")); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        shop.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Icon\\Shop-icon.png")); // NOI18N
+        shop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                shopMouseClicked(evt);
+            }
+        });
+        getContentPane().add(shop, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+
+        back_ground.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Background\\Farm-ground.png")); // NOI18N
+        getContentPane().add(back_ground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void free_groundMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_free_groundMouseReleased
-        System.out.println(i++);
-        jLabel_plant_satge1 = new JLabel();
-        
-        jLabel_plant_satge1.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Plant\\Carrot\\Carrot-stage-1.png"));
-        jLabel_plant_satge1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        getContentPane().remove(free_ground);
-        getContentPane().add(jLabel_plant_satge1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 100, 90), 0);
-        
-        getContentPane().revalidate();
-        getContentPane().repaint();
-    }//GEN-LAST:event_free_groundMouseReleased
+    private void shopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shopMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_shopMouseClicked
 
-    private void free_groundMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_free_groundMouseDragged
-        
-    }//GEN-LAST:event_free_groundMouseDragged
+    private void bagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bagMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bagMouseClicked
 
     /**
      * @param args the command line arguments
@@ -111,12 +143,25 @@ public class Process extends javax.swing.JFrame {
                 new Process().setVisible(true);
             }
         });
+        
     }
-
-    private int i;
+    
+    // STEP GENERATE GROUND X+=100 Y+=50 i=4
+    static final int STEP_X = 100;
+    static final int STEP_Y = 65;
+    static final int NUMBER_GROUND = 8; // number of free ground
+    static final String FREE_GROUND_PATH = "D:\\Project_Farm\\img\\Ground\\free-ground.png";
+    
+    Point start_row_1 = new Point(490, 130);
+    Point start_row_2 = new Point(610, 200);
+    
+    List<Point> listPoint; // list coordinate ground X Y
+    List<JLabel> listGround; // list label ground
+    
     private static javax.swing.JLabel jLabel_plant_satge1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private static javax.swing.JLabel free_ground;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel back_ground;
+    private static javax.swing.JLabel bag;
+    private static javax.swing.JLabel shop;
     // End of variables declaration//GEN-END:variables
 }
