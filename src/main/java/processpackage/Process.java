@@ -65,7 +65,7 @@ public class Process extends javax.swing.JFrame {
         System.out.println(i++);
         jLabel_plant_satge1 = new JLabel();
         
-        jLabel_plant_satge1.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Plant\\Carrot"));
+        jLabel_plant_satge1.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Plant\\Carrot\\Carrot-stage-1.png"));
         jLabel_plant_satge1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         getContentPane().remove(jLabel3);
         getContentPane().add(jLabel_plant_satge1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 100, 90), 0);
