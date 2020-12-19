@@ -41,7 +41,7 @@ public class Process extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\kazen\\Documents\\NetBeansProjects\\project\\free-slot-ground.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Ground\\free-slot-ground.png")); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -55,7 +55,7 @@ public class Process extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 100, 90));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\kazen\\Documents\\NetBeansProjects\\project\\Farm-ground.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Background\\Farm-ground.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
