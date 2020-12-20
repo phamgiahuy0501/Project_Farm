@@ -70,8 +70,8 @@ public class Process extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bag = new javax.swing.JLabel();
-        shop = new javax.swing.JLabel();
+        bag_icon = new javax.swing.JLabel();
+        shop_icon = new javax.swing.JLabel();
         back_ground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,21 +80,21 @@ public class Process extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bag.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Icon\\Bag-icon.png")); // NOI18N
-        bag.addMouseListener(new java.awt.event.MouseAdapter() {
+        bag_icon.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Icon\\Bag-icon.png")); // NOI18N
+        bag_icon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bagMouseClicked(evt);
+                bag_iconMouseClicked(evt);
             }
         });
-        getContentPane().add(bag, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        getContentPane().add(bag_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        shop.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Icon\\Shop-icon.png")); // NOI18N
-        shop.addMouseListener(new java.awt.event.MouseAdapter() {
+        shop_icon.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Icon\\Shop-icon.png")); // NOI18N
+        shop_icon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                shopMouseClicked(evt);
+                shop_iconMouseClicked(evt);
             }
         });
-        getContentPane().add(shop, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        getContentPane().add(shop_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         back_ground.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Background\\Farm-ground.png")); // NOI18N
         getContentPane().add(back_ground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -102,13 +102,17 @@ public class Process extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void shopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shopMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_shopMouseClicked
+    private void shop_iconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shop_iconMouseClicked
+        Shop shop = new Shop();
+        getContentPane().add(shop.getLabel(), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1), 0);
+        System.out.println(shop.getLabel().getText());
+        getContentPane().validate();
+        getContentPane().repaint();
+    }//GEN-LAST:event_shop_iconMouseClicked
 
-    private void bagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bagMouseClicked
+    private void bag_iconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bag_iconMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_bagMouseClicked
+    }//GEN-LAST:event_bag_iconMouseClicked
 
     /**
      * @param args the command line arguments
@@ -161,7 +165,7 @@ public class Process extends javax.swing.JFrame {
     private static javax.swing.JLabel jLabel_plant_satge1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back_ground;
-    private static javax.swing.JLabel bag;
-    private static javax.swing.JLabel shop;
+    private static javax.swing.JLabel bag_icon;
+    private static javax.swing.JLabel shop_icon;
     // End of variables declaration//GEN-END:variables
 }
