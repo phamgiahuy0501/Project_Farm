@@ -12,9 +12,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 import java.util.List;
-import javax.swing.JFrame;
 
 /**
  *
@@ -76,10 +74,6 @@ public class GamePlay extends JPanel {
             }
         });
     }
-
-    public void run(JFrame jframe) {
-        jframe.add(this);
-    }
     
     // STEP GENERATE GROUND X-=100 Y+=65 i=4
     private void initFreeGround() {
@@ -117,7 +111,10 @@ public class GamePlay extends JPanel {
     }
 
     private void shop_iconClicked(MouseEvent evt) {
+        ModuleManager.plugIn(Main.mainFrame, Main.shop, 0);
         
+        ModuleManager.revalidate(Main.mainFrame);
+        ModuleManager.repaint(Main.mainFrame);
     }
 
     private void mainClicked(MouseEvent evt) {

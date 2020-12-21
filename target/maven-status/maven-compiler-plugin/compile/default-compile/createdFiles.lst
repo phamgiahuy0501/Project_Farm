@@ -1,8 +1,10 @@
 processpackage\Shop.class
+processpackage\Main.class
+processpackage\ModuleManager.class
 processpackage\GamePlay$1.class
+processpackage\MainFrame.class
 processpackage\GamePlay$2.class
-processpackage\Process.class
-processpackage\Process$1.class
 processpackage\GamePlay$3.class
 processpackage\GamePlay.class
+processpackage\Shop$1.class
 processpackage\Point.class
