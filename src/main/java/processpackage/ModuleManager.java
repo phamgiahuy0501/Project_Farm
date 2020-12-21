@@ -34,4 +34,8 @@ public class ModuleManager {
         frame.repaint();
     }
     
+    public static void quit(JFrame frame) {
+        frame.dispose();
+    }
+    
 }

@@ -12,18 +12,18 @@ package processpackage;
 public class Main {
     public static MainFrame mainFrame;
     
+    public static Menu menu;
     public static GamePlay gamePlay;
     public static Shop shop;
     
     public static void main(String[] args) {
         mainFrame = new MainFrame();
         
+        menu = new Menu();
         gamePlay = new GamePlay();
         shop = new Shop();
         
-        
-        ModuleManager.plugIn(mainFrame, gamePlay);
+        ModuleManager.plugIn(mainFrame, menu);
         mainFrame.setVisible(true);
-        
     }
 }
