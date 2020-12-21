@@ -1,7 +1,8 @@
 processpackage\Shop.class
+processpackage\GamePlay$1.class
+processpackage\GamePlay$2.class
 processpackage\Process.class
 processpackage\Process$1.class
-processpackage\Process$3.class
-processpackage\Shop$1.class
-processpackage\Process$2.class
+processpackage\GamePlay$3.class
+processpackage\GamePlay.class
 processpackage\Point.class

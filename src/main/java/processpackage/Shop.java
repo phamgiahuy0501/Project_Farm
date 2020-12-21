@@ -5,33 +5,30 @@
  */
 package processpackage;
 
+import java.awt.Dimension;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.JPanel;
 
 /**
  *
  * @author kazen
  */
-public class Shop {
-    JLabel label;
+public class Shop extends JPanel {
     
+    JLabel background = new JLabel();
+    
+    static final String PATH_BACKGROUND = "D:\\Project_Farm\\img\\Background\\Background-shop.png";
+
     Shop() {
-        label = new JLabel();
-        label.setIcon(new javax.swing.ImageIcon("D:\\Project_Farm\\img\\Background\\Background-shop.png"));
-        label.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                test_function();
-            }
-        });
-    }
-    
-    void test_function() {
+        setMaximumSize(new Dimension(800, 600));
+        setMinimumSize(new Dimension(800, 600));
+        setSize(new Dimension(800, 600));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         
+        background.setIcon(new ImageIcon(PATH_BACKGROUND));
+        
+        add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }
-    
-    JLabel getLabel() {
-        return label;
-    }
-    
+
 }
