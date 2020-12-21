@@ -25,8 +25,10 @@ public class Shop extends JPanel {
     
     static final String PATH_BACKGROUND = "D:\\Project_Farm\\img\\Background\\Background-shop.png";
     static final String PATH_SEED = "D:\\Project_Farm\\img\\Button\\Seed-tag-button.png";
+    static final String PATH_SEED_LIGHTER = "D:\\Project_Farm\\img\\Button\\Seed-tag-lighter-button.png";
     static final String PATH_FERTILIZER = "D:\\Project_Farm\\img\\Button\\Fertilizer-tag-button.png";
-    static final String PATH_CLOSE = "D:\\Project_Farm\\img\\Button\\Close-button.png";
+    static final String PATH_FERTILIZER_LIGHTER = "D:\\Project_Farm\\img\\Button\\Fertilizer-tag-lighter-button.png";
+    static final String PATH_CLOSE = "D:\\Project_Farm\\img\\Button\\Close-button-1.png";
     
     Shop() {
         setMaximumSize(new Dimension(800, 600));
@@ -69,11 +71,17 @@ public class Shop extends JPanel {
     }
     
     private void seedClicked(MouseEvent evt) {
-        System.out.println("ok seed");
+        fertilizer.setIcon(new ImageIcon(PATH_FERTILIZER));
+        seed.setIcon(new ImageIcon(PATH_SEED_LIGHTER));
+        
+        /* ADD GENERATE CODE HERE */
     }
     
     private void fertilizerClicked(MouseEvent evt) {
-        System.out.println("ok fertilizer");
+        fertilizer.setIcon(new ImageIcon(PATH_FERTILIZER_LIGHTER));
+        seed.setIcon(new ImageIcon(PATH_SEED));
+    
+        /* ADD GENERATE CODE HERE */
     }
     
     private void closeClicked(MouseEvent evt) {
