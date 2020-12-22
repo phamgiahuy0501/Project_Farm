@@ -18,6 +18,11 @@ public class Point {
         y = 0;
     }
     
+    Point(Point p) {
+        this.x = p.getX();
+        this.y = p.getY();
+    }
+    
     Point(int x, int y) { 
         this.x = x;
         this.y = y;
@@ -42,5 +47,10 @@ public class Point {
     void set(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+    
+    @Override
+    public String toString() {
+        return "[" + x + ", " + y + "]";
     }
 }

@@ -23,6 +23,11 @@ public class GamePlay extends JPanel {
     static final int STEP_X = 100;
     static final int STEP_Y = 65;
     static final int NUMBER_GROUND = 8;
+    static final int SIZE_GROUND_X = 100;
+    static final int SIZE_GROUND_Y = 115;
+
+    static final Point START_ROW_1 = new Point(470, 90);
+    static final Point START_ROW_2 = new Point(610, 170);
 
     static final String PATH_BAG = "D:\\Project_Farm\\img\\Icon\\Bag-icon.png";
     static final String PATH_BACKGROUND = "D:\\Project_Farm\\img\\Background\\Farm-ground.png";
@@ -32,6 +37,20 @@ public class GamePlay extends JPanel {
     static final String PATH_VOLUME = "D:\\Project_Farm\\img\\Button\\GamePlay\\Volume-button.png";
     static final String PATH_VOLUME_DARKER = "D:\\Project_Farm\\img\\Button\\GamePlay\\Volume-darker-button.png";
     static final String PATH_BACK = "D:\\Project_Farm\\img\\Button\\GamePlay\\Back-button.png";
+
+    /* PLANT PATH */
+    static final String PATH_TOMATO_STAGE_1 = "D:\\Project_Farm\\img\\Plant\\Tomato\\Tomato-stage-1.png";
+    static final String PATH_TOMATO_STAGE_2 = "D:\\Project_Farm\\img\\Plant\\Tomato\\Tomato-stage-2.png";
+    static final String PATH_TOMATO_STAGE_3 = "D:\\Project_Farm\\img\\Plant\\Tomato\\Tomato-stage-3.png";
+
+    static final String PATH_POTATO_STAGE_1 = "D:\\Project_Farm\\img\\Plant\\Potato\\Potato-stage-1.png";
+    static final String PATH_POTATO_STAGE_2 = "D:\\Project_Farm\\img\\Plant\\Potato\\Potato-stage-2.png";
+    static final String PATH_POTATO_STAGE_3 = "D:\\Project_Farm\\img\\Plant\\Potato\\Potato-stage-3.png";
+
+    static final String PATH_CARROT_STAGE_1 = "D:\\Project_Farm\\img\\Plant\\Carrot\\Carrot-stage-1.png";
+    static final String PATH_CARROT_STAGE_2 = "D:\\Project_Farm\\img\\Plant\\Carrot\\Carrot-stage-2.png";
+    static final String PATH_CARROT_STAGE_3 = "D:\\Project_Farm\\img\\Plant\\Carrot\\Carrot-stage-3.png";
+    /* END PLANT PATH */
 
     JLabel background = new JLabel();
     JLabel bag_icon = new JLabel();
@@ -113,18 +132,19 @@ public class GamePlay extends JPanel {
     // STEP GENERATE GROUND X-=100 Y+=65 i=4
     private void initFreeGround() {
         int i;
-        Point start_row_1 = new Point(490, 130);
-        Point start_row_2 = new Point(610, 200);
+
+        Point start_row_1 = new Point(START_ROW_1);
+        Point start_row_2 = new Point(START_ROW_2);
 
         for (i = 0; i < 4; i++) {
             JLabel temp_jlabel = new JLabel();
 
-            temp_jlabel.setIcon(new ImageIcon(PATH_FREEGROUND));
+            temp_jlabel.setIcon(new ImageIcon(PATH_TOMATO_STAGE_3)); // path free ground
             temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-            add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_1.getX(), start_row_1.getY(), 100, 90), 0);
+            add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_1.getX(), start_row_1.getY(), SIZE_GROUND_X, SIZE_GROUND_Y), 0);
 
-            listPoint.add(start_row_1);
+            listPoint.add(new Point(start_row_1));
             listGround.add(temp_jlabel);
 
             start_row_1.set(start_row_1.getX() - STEP_X, start_row_1.getY() + STEP_Y);
@@ -133,12 +153,16 @@ public class GamePlay extends JPanel {
         for (; i < NUMBER_GROUND; i++) {
             JLabel temp_jlabel = new JLabel();
 
-            temp_jlabel.setIcon(new ImageIcon(PATH_FREEGROUND));
+            if (i >= 6) {
+                temp_jlabel.setIcon(new ImageIcon(PATH_CARROT_STAGE_3)); // path free ground
+            } else {
+                temp_jlabel.setIcon(new ImageIcon(PATH_POTATO_STAGE_3)); // path free ground
+            }
             temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-            add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_2.getX(), start_row_2.getY(), 100, 90), 0);
+            add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_2.getX(), start_row_2.getY(), SIZE_GROUND_X, SIZE_GROUND_Y), 0);
 
-            listPoint.add(start_row_1);
+            listPoint.add(new Point(start_row_2));
             listGround.add(temp_jlabel);
 
             start_row_2.set(start_row_2.getX() - STEP_X, start_row_2.getY() + STEP_Y);
@@ -147,11 +171,11 @@ public class GamePlay extends JPanel {
 
     private void open_basketClicked(MouseEvent evt) {
         ModuleManager.plugIn(Main.mainFrame, Main.basket, 0);
-        
+
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }
-    
+
     private void backClicked(MouseEvent evt) {
         ModuleManager.clearPlug(Main.mainFrame);
         ModuleManager.plugIn(Main.mainFrame, Main.menu);
