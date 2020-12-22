@@ -27,11 +27,18 @@ public class GamePlay extends JPanel {
     JLabel background = new JLabel();
     JLabel bag_icon = new JLabel();
     JLabel shop_icon = new JLabel();
+    JLabel back = new JLabel();
+    JLabel volume = new JLabel();
 
     static final String PATH_BAG = "D:\\Project_Farm\\img\\Icon\\Bag-icon.png";
     static final String PATH_BACKGROUND = "D:\\Project_Farm\\img\\Background\\Farm-ground.png";
     static final String PATH_SHOP = "D:\\Project_Farm\\img\\Icon\\Shop-icon.png";
     static final String PATH_FREEGROUND = "D:\\Project_Farm\\img\\Ground\\free-ground.png";
+    static final String PATH_VOLUME = "D:\\Project_Farm\\img\\Button\\Volume-button.png";
+    static final String PATH_VOLUME_DARKER = "D:\\Project_Farm\\img\\Button\\Volume-darker-button.png";
+    static final String PATH_BACK = "D:\\Project_Farm\\img\\Button\\Back-button.png";
+
+    boolean volume_status = true;
 
     List<Point> listPoint = new ArrayList<Point>(); //list coordinate ground X Y
     List<JLabel> listGround = new ArrayList<JLabel>(); // list label ground
@@ -45,12 +52,16 @@ public class GamePlay extends JPanel {
         background.setIcon(new ImageIcon(PATH_BACKGROUND));
         bag_icon.setIcon(new ImageIcon(PATH_BAG));
         shop_icon.setIcon(new ImageIcon(PATH_SHOP));
+        back.setIcon(new ImageIcon(PATH_BACK));
+        volume.setIcon(new ImageIcon(PATH_VOLUME));
 
         add(shop_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
         add(bag_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        add(volume, new org.netbeans.lib.awtextra.AbsoluteConstraints(715, 25, -1, -1));
+        add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 25, -1, -1));
 
         initFreeGround();
-        
+
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         shop_icon.addMouseListener(new MouseAdapter() {
@@ -66,7 +77,21 @@ public class GamePlay extends JPanel {
                 bag_iconClicked(evt);
             }
         });
-        
+
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                backClicked(evt);
+            }
+        });
+
+        volume.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                volumeClicked(evt);
+            }
+        });
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -74,7 +99,7 @@ public class GamePlay extends JPanel {
             }
         });
     }
-    
+
     // STEP GENERATE GROUND X-=100 Y+=65 i=4
     private void initFreeGround() {
         int i;
@@ -102,17 +127,37 @@ public class GamePlay extends JPanel {
             temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
             add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_2.getX(), start_row_2.getY(), 100, 90), 0);
-            
+
             listPoint.add(start_row_1);
             listGround.add(temp_jlabel);
-            
+
             start_row_2.set(start_row_2.getX() - STEP_X, start_row_2.getY() + STEP_Y);
         }
     }
 
+    private void backClicked(MouseEvent evt) {
+        ModuleManager.plugOut(Main.mainFrame, this);
+        ModuleManager.plugIn(Main.mainFrame, Main.menu);
+        
+        ModuleManager.revalidate(Main.mainFrame);
+        ModuleManager.repaint(Main.mainFrame);
+    }
+
+    private void volumeClicked(MouseEvent evt) {
+        volume_status = !volume_status;
+
+        if (volume_status) {
+            volume.setIcon(new ImageIcon(PATH_VOLUME));
+        } else {
+            volume.setIcon(new ImageIcon(PATH_VOLUME_DARKER));
+        }
+        
+        
+    }
+
     private void shop_iconClicked(MouseEvent evt) {
         ModuleManager.plugIn(Main.mainFrame, Main.shop, 0);
-        
+
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }
@@ -120,7 +165,7 @@ public class GamePlay extends JPanel {
     private void mainClicked(MouseEvent evt) {
         System.out.println("ok main");
     }
-    
+
     private void bag_iconClicked(MouseEvent evt) {
         System.out.println("ok bag");
     }

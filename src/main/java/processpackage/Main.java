@@ -23,7 +23,7 @@ public class Main {
         gamePlay = new GamePlay();
         shop = new Shop();
         
-        ModuleManager.plugIn(mainFrame, menu);
+        ModuleManager.plugIn(mainFrame, gamePlay);
         mainFrame.setVisible(true);
     }
 }
