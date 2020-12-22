@@ -24,9 +24,9 @@ public class Menu extends JPanel {
     JLabel quit = new JLabel();
     
     static final String PATH_BACKGROUND = "D:\\Project_Farm\\img\\Background\\Background-menu.png";
-    static final String PATH_PLAY = "D:\\Project_Farm\\img\\Button\\Play-button.png";
-    static final String PATH_OPTIONS = "D:\\Project_Farm\\img\\Button\\Options-button.png";
-    static final String PATH_QUIT = "D:\\Project_Farm\\img\\Button\\Quit-button.png";
+    static final String PATH_PLAY = "D:\\Project_Farm\\img\\Button\\Menu\\Play-button.png";
+    static final String PATH_OPTIONS = "D:\\Project_Farm\\img\\Button\\Menu\\Options-button.png";
+    static final String PATH_QUIT = "D:\\Project_Farm\\img\\Button\\Menu\\Quit-button.png";
     
     public Menu() {
         setMaximumSize(new Dimension(800, 600));

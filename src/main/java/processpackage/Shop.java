@@ -24,11 +24,11 @@ public class Shop extends JPanel {
     JLabel close = new JLabel();
     
     static final String PATH_BACKGROUND = "D:\\Project_Farm\\img\\Background\\Background-shop.png";
-    static final String PATH_SEED = "D:\\Project_Farm\\img\\Button\\Seed-tag-button.png";
-    static final String PATH_SEED_LIGHTER = "D:\\Project_Farm\\img\\Button\\Seed-tag-lighter-button.png";
-    static final String PATH_FERTILIZER = "D:\\Project_Farm\\img\\Button\\Fertilizer-tag-button.png";
-    static final String PATH_FERTILIZER_LIGHTER = "D:\\Project_Farm\\img\\Button\\Fertilizer-tag-lighter-button.png";
-    static final String PATH_CLOSE = "D:\\Project_Farm\\img\\Button\\Close-button-1.png";
+    static final String PATH_SEED = "D:\\Project_Farm\\img\\Button\\Shop\\Seed-tag-button.png";
+    static final String PATH_SEED_LIGHTER = "D:\\Project_Farm\\img\\Button\\Shop\\Seed-tag-lighter-button.png";
+    static final String PATH_FERTILIZER = "D:\\Project_Farm\\img\\Button\\Shop\\Fertilizer-tag-button.png";
+    static final String PATH_FERTILIZER_LIGHTER = "D:\\Project_Farm\\img\\Button\\Shop\\Fertilizer-tag-lighter-button.png";
+    static final String PATH_CLOSE = "D:\\Project_Farm\\img\\Button\\Shop\\Close-button.png";
     
     Shop() {
         setMaximumSize(new Dimension(800, 600));
@@ -38,15 +38,14 @@ public class Shop extends JPanel {
         setOpaque(false);
         
         background.setIcon(new ImageIcon(PATH_BACKGROUND));
-        seed.setIcon(new ImageIcon(PATH_SEED));
+        seed.setIcon(new ImageIcon(PATH_SEED_LIGHTER));
         fertilizer.setIcon(new ImageIcon(PATH_FERTILIZER));
         close.setIcon(new ImageIcon(PATH_CLOSE));
         
         add(seed, new org.netbeans.lib.awtextra.AbsoluteConstraints(287, 150, -1, -1));
         add(fertilizer, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 150, -1, -1));
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-        add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 50, -1,-1));
-        
+        add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 60, -1,-1));
         
         seed.addMouseListener(new MouseAdapter() {
             @Override

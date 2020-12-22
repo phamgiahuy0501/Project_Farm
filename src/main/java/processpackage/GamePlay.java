@@ -24,19 +24,21 @@ public class GamePlay extends JPanel {
     static final int STEP_Y = 65;
     static final int NUMBER_GROUND = 8;
 
-    JLabel background = new JLabel();
-    JLabel bag_icon = new JLabel();
-    JLabel shop_icon = new JLabel();
-    JLabel back = new JLabel();
-    JLabel volume = new JLabel();
-
     static final String PATH_BAG = "D:\\Project_Farm\\img\\Icon\\Bag-icon.png";
     static final String PATH_BACKGROUND = "D:\\Project_Farm\\img\\Background\\Farm-ground.png";
     static final String PATH_SHOP = "D:\\Project_Farm\\img\\Icon\\Shop-icon.png";
     static final String PATH_FREEGROUND = "D:\\Project_Farm\\img\\Ground\\free-ground.png";
-    static final String PATH_VOLUME = "D:\\Project_Farm\\img\\Button\\Volume-button.png";
-    static final String PATH_VOLUME_DARKER = "D:\\Project_Farm\\img\\Button\\Volume-darker-button.png";
-    static final String PATH_BACK = "D:\\Project_Farm\\img\\Button\\Back-button.png";
+    static final String PATH_OPEN_BASKET = "D:\\Project_Farm\\img\\Button\\GamePlay\\Open-left-button.png";
+    static final String PATH_VOLUME = "D:\\Project_Farm\\img\\Button\\GamePlay\\Volume-button.png";
+    static final String PATH_VOLUME_DARKER = "D:\\Project_Farm\\img\\Button\\GamePlay\\Volume-darker-button.png";
+    static final String PATH_BACK = "D:\\Project_Farm\\img\\Button\\GamePlay\\Back-button.png";
+
+    JLabel background = new JLabel();
+    JLabel bag_icon = new JLabel();
+    JLabel shop_icon = new JLabel();
+    JLabel open_basket = new JLabel();
+    JLabel back = new JLabel();
+    JLabel volume = new JLabel();
 
     boolean volume_status = true;
 
@@ -52,6 +54,7 @@ public class GamePlay extends JPanel {
         background.setIcon(new ImageIcon(PATH_BACKGROUND));
         bag_icon.setIcon(new ImageIcon(PATH_BAG));
         shop_icon.setIcon(new ImageIcon(PATH_SHOP));
+        open_basket.setIcon(new ImageIcon(PATH_OPEN_BASKET));
         back.setIcon(new ImageIcon(PATH_BACK));
         volume.setIcon(new ImageIcon(PATH_VOLUME));
 
@@ -59,6 +62,7 @@ public class GamePlay extends JPanel {
         add(bag_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
         add(volume, new org.netbeans.lib.awtextra.AbsoluteConstraints(715, 25, -1, -1));
         add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 25, -1, -1));
+        add(open_basket, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
 
         initFreeGround();
 
@@ -92,6 +96,12 @@ public class GamePlay extends JPanel {
             }
         });
 
+        open_basket.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                open_basketClicked(evt);
+            }
+        });
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -135,10 +145,17 @@ public class GamePlay extends JPanel {
         }
     }
 
-    private void backClicked(MouseEvent evt) {
-        ModuleManager.plugOut(Main.mainFrame, this);
-        ModuleManager.plugIn(Main.mainFrame, Main.menu);
+    private void open_basketClicked(MouseEvent evt) {
+        ModuleManager.plugIn(Main.mainFrame, Main.basket, 0);
         
+        ModuleManager.revalidate(Main.mainFrame);
+        ModuleManager.repaint(Main.mainFrame);
+    }
+    
+    private void backClicked(MouseEvent evt) {
+        ModuleManager.clearPlug(Main.mainFrame);
+        ModuleManager.plugIn(Main.mainFrame, Main.menu);
+
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }
@@ -151,8 +168,6 @@ public class GamePlay extends JPanel {
         } else {
             volume.setIcon(new ImageIcon(PATH_VOLUME_DARKER));
         }
-        
-        
     }
 
     private void shop_iconClicked(MouseEvent evt) {
