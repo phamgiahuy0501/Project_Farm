@@ -50,11 +50,8 @@ public class Shop extends JPanel {
     /* END CARD SEED */
  /* END CARD */
 
-    List<Point> listSeedPoint = new ArrayList<Point>();
-    List<Point> listFertilizerList = new ArrayList<Point>();
-
-    List<JLabel> listSeedCard = new ArrayList<JLabel>();
-    List<JLabel> listFertilizerCard = new ArrayList<JLabel>();
+    List<MyLabel> listSeedCard = new ArrayList<>();
+    List<MyLabel> listFertilizerCard = new ArrayList<>();
 
     Shop() {
         setMaximumSize(new Dimension(800, 600));
@@ -71,8 +68,7 @@ public class Shop extends JPanel {
         add(seed, new org.netbeans.lib.awtextra.AbsoluteConstraints(287, 150, -1, -1));
         add(fertilizer, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 150, -1, -1));
 
-        //initSeedCart();
-
+        initSeedCart();
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 60, -1, -1));
 
@@ -102,14 +98,22 @@ public class Shop extends JPanel {
         fertilizer.setIcon(new ImageIcon(PATH_FERTILIZER));
         seed.setIcon(new ImageIcon(PATH_SEED_LIGHTER));
 
-        /* ADD GENERATE CODE HERE */
+        removeFertilizerCard();
+        initSeedCart();
+
+        ModuleManager.revalidate(Main.mainFrame);
+        ModuleManager.repaint(Main.mainFrame);
     }
 
     private void fertilizerClicked(MouseEvent evt) {
         fertilizer.setIcon(new ImageIcon(PATH_FERTILIZER_LIGHTER));
         seed.setIcon(new ImageIcon(PATH_SEED));
 
-        /* ADD GENERATE CODE HERE */
+        removeSeedCart();
+        initFertilizerCard();
+
+        ModuleManager.revalidate(Main.mainFrame);
+        ModuleManager.repaint(Main.mainFrame);
     }
 
     private void closeClicked(MouseEvent evt) {
@@ -118,48 +122,47 @@ public class Shop extends JPanel {
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }
-    
-    
-    /* ON WORKING */
+
+    private void removeSeedCart() {
+        listSeedCard.forEach(mylabel -> {
+            remove(mylabel.getLabel());
+        });
+    }
+
+    private void removeFertilizerCard() {
+        System.out.println("remove fertilizer");
+    }
+
+    private void initFertilizerCard() {
+        System.out.println("init fertilizer");
+    }
+
     private void initSeedCart() {
-        if (listSeedCard.isEmpty() && listSeedPoint.isEmpty()) {
+        if (listSeedCard.isEmpty()) {
             int i;
+
+            List<String> LIST_PATH = new ArrayList<>();
+            LIST_PATH.add(PATH_CARROT_CARD);
+            LIST_PATH.add(PATH_POTATO_CARD);
+            LIST_PATH.add(PATH_POTATO_CARD);
+            LIST_PATH.add(PATH_CORN_CARD);
+            LIST_PATH.add(PATH_PEAS_CARD);
+            LIST_PATH.add(PATH_CABBAGE_CARD);
 
             for (i = 0; i < NUMBER_SEED; i++) {
                 JLabel temp_jlabel = new JLabel();
 
-                switch (i) {
-                    case 0:
-                        temp_jlabel.setIcon(new ImageIcon(PATH_CARROT_CARD));
-                        break;
-                    case 1:
-                        temp_jlabel.setIcon(new ImageIcon(PATH_POTATO_CARD));
-                        break;
-                    case 2:
-                        temp_jlabel.setIcon(new ImageIcon(PATH_TOMATO_CARD));
-                        break;
-                    case 3:
-                        temp_jlabel.setIcon(new ImageIcon(PATH_CORN_CARD));
-                        break;
-                    case 4:
-                        temp_jlabel.setIcon(new ImageIcon(PATH_PEAS_CARD));
-                        break;
-                    case 5:
-                        temp_jlabel.setIcon(new ImageIcon(PATH_CABBAGE_CARD));
-                        break;
-                }
+                temp_jlabel.setIcon(new ImageIcon(LIST_PATH.get(i)));
 
                 Point temp_point = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
-                add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(temp_point.getX(), temp_point.getY(), -1, -1));
+                add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(temp_point.getX(), temp_point.getY(), -1, -1), 0);
 
-                listSeedPoint.add(new Point(temp_point));
-                listSeedCard.add(temp_jlabel);
+                listSeedCard.add(new MyLabel(temp_jlabel, new Point(temp_point)));
             }
-        } else 
-        {
-            for (int i = 0; i < listSeedCard.size(); i++) {
-                
-            }
+        } else {
+            listSeedCard.forEach((mylabel) -> {
+                add(mylabel.getLabel(), new org.netbeans.lib.awtextra.AbsoluteConstraints(mylabel.getPoint().getX(), mylabel.getPoint().getY()), 0);
+            });
         }
     }
 }

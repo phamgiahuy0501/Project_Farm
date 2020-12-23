@@ -61,8 +61,8 @@ public class GamePlay extends JPanel {
 
     boolean volume_status = true;
 
-    List<Point> listPoint = new ArrayList<Point>(); //list coordinate ground X Y
-    List<JLabel> listGround = new ArrayList<JLabel>(); // list label ground
+    List<Point> listPoint = new ArrayList<>(); //list coordinate ground X Y
+    List<JLabel> listGround = new ArrayList<>(); // list label ground
 
     public GamePlay() {
         setMaximumSize(new Dimension(800, 600));
