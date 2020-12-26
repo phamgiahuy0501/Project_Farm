@@ -17,7 +17,7 @@ public class Main {
         shop = new Shop();
         basket = new Basket();
         
-        ModuleManager.plugIn(mainFrame, gamePlay);
+        ModuleManager.plugIn(mainFrame, menu);
         mainFrame.setVisible(true);
     }
 }
