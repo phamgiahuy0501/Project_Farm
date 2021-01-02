@@ -22,7 +22,6 @@ public class Shop extends JPanel {
 
     static final int STEP_X = 140;
     static final int STEP_Y = 170;
-    static final int NUMBER_SEED = 6;
     static final int NUMBER_CARDINROW = 4;
 
     static final Point START = new Point(130, 200);
@@ -39,15 +38,21 @@ public class Shop extends JPanel {
     static final String PATH_FERTILIZER_LIGHTER = "D:\\Project_Farm\\img\\Button\\Shop\\Fertilizer-tag-lighter-button.png";
     static final String PATH_CLOSE = "D:\\Project_Farm\\img\\Button\\Shop\\Close-button.png";
 
-    /* CARD */
- /* CARD SEED */
-    static final String PATH_CABBAGE_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Cabbage-card-with-price.png";
-    static final String PATH_CARROT_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Carrot-card-with-price.png";
-    static final String PATH_CORN_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Corn-card-with-price.png";
-    static final String PATH_PEAS_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Peas-card-with-price.png";
-    static final String PATH_POTATO_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Potato-card-with-price.png";
-    static final String PATH_TOMATO_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Tomato-card-with-price.png";
+/* CARD */
+    /* CARD SEED */
+    static final String PATH_CABBAGE_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Seed\\Cabbage-card-price.png";
+    static final String PATH_CARROT_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Seed\\Carrot-card-price.png";
+    static final String PATH_CORN_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Seed\\Corn-card-price.png";
+    static final String PATH_PEAS_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Seed\\Peas-card-price.png";
+    static final String PATH_POTATO_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Seed\\Potato-card-price.png";
+    static final String PATH_TOMATO_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Seed\\Tomato-card-price.png";
     /* END CARD SEED */
+    /* CARD FERTILIZER */
+    static final String PATH_SMALL_FERTILIZER_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Fertilizer\\Small-fertilizer-card-price.png";
+    static final String PATH_MEDIUM_FERTILIZER_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Fertilizer\\Medium-fertilizer-card-price.png";
+    static final String PATH_BIG_FERTILIZER_CARD = "D:\\Project_Farm\\img\\Card\\Shop\\Fertilizer\\Big-fertilizer-card-price.png";
+    /* END CARD FERTILIZER */
+    
  /* END CARD */
 
     List<MyLabel> listSeedCard = new ArrayList<>();
@@ -130,26 +135,47 @@ public class Shop extends JPanel {
     }
 
     private void removeFertilizerCard() {
-        System.out.println("remove fertilizer");
+        listFertilizerCard.forEach(mylabel -> {
+            remove(mylabel.getLabel());
+        });
     }
 
     private void initFertilizerCard() {
-        System.out.println("init fertilizer");
+        if (listFertilizerCard.isEmpty()) {
+            
+            List<String> LIST_PATH = new ArrayList<>();
+            LIST_PATH.add(PATH_SMALL_FERTILIZER_CARD);
+            LIST_PATH.add(PATH_MEDIUM_FERTILIZER_CARD);
+            LIST_PATH.add(PATH_BIG_FERTILIZER_CARD);
+            
+            for (int i = 0; i < LIST_PATH.size(); i++) {
+                JLabel temp_jlabel = new JLabel();
+                temp_jlabel.setIcon(new ImageIcon(LIST_PATH.get(i)));
+                
+                Point temp_point = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
+                add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(temp_point.getX(), temp_point.getY(), -1, -1), 0);
+            
+                listFertilizerCard.add(new MyLabel(temp_jlabel, new Point(temp_point)));
+            }
+        } else {
+            listFertilizerCard.forEach((mylabel) -> {
+                add(mylabel.getLabel(), new org.netbeans.lib.awtextra.AbsoluteConstraints(mylabel.getPoint().getX(), mylabel.getPoint().getY()), 0);
+            });
+        }
     }
 
     private void initSeedCart() {
         if (listSeedCard.isEmpty()) {
-            int i;
 
             List<String> LIST_PATH = new ArrayList<>();
             LIST_PATH.add(PATH_CARROT_CARD);
             LIST_PATH.add(PATH_POTATO_CARD);
-            LIST_PATH.add(PATH_POTATO_CARD);
+            LIST_PATH.add(PATH_TOMATO_CARD);
             LIST_PATH.add(PATH_CORN_CARD);
             LIST_PATH.add(PATH_PEAS_CARD);
             LIST_PATH.add(PATH_CABBAGE_CARD);
 
-            for (i = 0; i < NUMBER_SEED; i++) {
+            for (int i = 0; i < LIST_PATH.size(); i++) {
                 JLabel temp_jlabel = new JLabel();
 
                 temp_jlabel.setIcon(new ImageIcon(LIST_PATH.get(i)));

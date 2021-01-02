@@ -9,5 +9,4 @@ public class Bag extends JPanel{
     public Bag() {
     
     }
-    
 }
