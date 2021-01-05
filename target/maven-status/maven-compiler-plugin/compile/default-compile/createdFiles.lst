@@ -1,6 +1,7 @@
 feature\Shop$1.class
 proc\ModuleManager.class
 feature\GamePlay$3.class
+proc_data\SqlDataFarm.class
 feature\MainFrame.class
 proc\Main.class
 feature\Basket$1.class
@@ -14,6 +15,7 @@ feature\GamePlay$5.class
 feature\GamePlay$2.class
 feature\Menu.class
 obj\Point.class
+proc_data\JsData.class
 feature\Menu$3.class
 feature\Shop$2.class
 feature\GamePlay$4.class
@@ -24,3 +26,4 @@ feature\Shop.class
 feature\Bag.class
 feature\GamePlay$1.class
 feature\Basket$2.class
+proc_data\SqlData.class

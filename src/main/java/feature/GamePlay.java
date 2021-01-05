@@ -34,32 +34,32 @@ public class GamePlay extends JPanel {
 
     /* PATH */
  /* BACK GROUND */
-    static final String PATH_BACKGROUND = "D:\\Project_Farm\\img\\game\\background\\Farm-ground.png";
+    static final String PATH_BACKGROUND = "img\\game\\background\\Farm-ground.png";
     /* END BACK GROUND */
 
  /* ICON */
-    static final String PATH_BAG = "D:\\Project_Farm\\img\\game\\icon\\Bag-icon.png";
-    static final String PATH_SHOP = "D:\\Project_Farm\\img\\game\\icon\\Shop-icon.png";
-    static final String PATH_OPEN_BASKET = "D:\\Project_Farm\\img\\game\\icon\\Open-left-icon.png";
-    static final String PATH_VOLUME = "D:\\Project_Farm\\img\\game\\icon\\Volume-icon.png";
-    static final String PATH_VOLUME_DARKER = "D:\\Project_Farm\\img\\game\\icon\\Volume-darker-icon.png";
-    static final String PATH_BACK = "D:\\Project_Farm\\img\\game\\icon\\Back-icon.png";
+    static final String PATH_BAG = "img\\game\\icon\\Bag-icon.png";
+    static final String PATH_SHOP = "img\\game\\icon\\Shop-icon.png";
+    static final String PATH_OPEN_BASKET = "img\\game\\icon\\Open-left-icon.png";
+    static final String PATH_VOLUME = "img\\game\\icon\\Volume-icon.png";
+    static final String PATH_VOLUME_DARKER = "img\\game\\icon\\Volume-darker-icon.png";
+    static final String PATH_BACK = "img\\game\\icon\\Back-icon.png";
     /* END ICON */
 
  /* PLANT PATH */
-    static final String PATH_FREEGROUND = "D:\\Project_Farm\\img\\game\\obj\\Free-ground.png";
+    static final String PATH_FREEGROUND = "img\\game\\obj\\Free-ground.png";
 
-    static final String PATH_TOMATO_STAGE_1 = "D:\\Project_Farm\\img\\game\\obj\\Tomato\\Tomato-stage-1.png";
-    static final String PATH_TOMATO_STAGE_2 = "D:\\Project_Farm\\img\\game\\obj\\Tomato\\Tomato-stage-2.png";
-    static final String PATH_TOMATO_STAGE_3 = "D:\\Project_Farm\\img\\game\\obj\\Tomato\\Tomato-stage-3.png";
+    static final String PATH_TOMATO_STAGE_1 = "img\\game\\obj\\Tomato\\Tomato-stage-1.png";
+    static final String PATH_TOMATO_STAGE_2 = "img\\game\\obj\\Tomato\\Tomato-stage-2.png";
+    static final String PATH_TOMATO_STAGE_3 = "img\\game\\obj\\Tomato\\Tomato-stage-3.png";
 
-    static final String PATH_POTATO_STAGE_1 = "D:\\Project_Farm\\img\\game\\obj\\Potato\\Potato-stage-1.png";
-    static final String PATH_POTATO_STAGE_2 = "D:\\Project_Farm\\img\\game\\obj\\Potato\\Potato-stage-2.png";
-    static final String PATH_POTATO_STAGE_3 = "D:\\Project_Farm\\img\\game\\obj\\Potato\\Potato-stage-3.png";
+    static final String PATH_POTATO_STAGE_1 = "img\\game\\obj\\Potato\\Potato-stage-1.png";
+    static final String PATH_POTATO_STAGE_2 = "img\\game\\obj\\Potato\\Potato-stage-2.png";
+    static final String PATH_POTATO_STAGE_3 = "img\\game\\obj\\Potato\\Potato-stage-3.png";
 
-    static final String PATH_CARROT_STAGE_1 = "D:\\Project_Farm\\img\\game\\obj\\Carrot\\Carrot-stage-1.png";
-    static final String PATH_CARROT_STAGE_2 = "D:\\Project_Farm\\img\\game\\obj\\Carrot\\Carrot-stage-2.png";
-    static final String PATH_CARROT_STAGE_3 = "D:\\Project_Farm\\img\\game\\obj\\Carrot\\Carrot-stage-3.png";
+    static final String PATH_CARROT_STAGE_1 = "img\\game\\obj\\Carrot\\Carrot-stage-1.png";
+    static final String PATH_CARROT_STAGE_2 = "img\\game\\obj\\Carrot\\Carrot-stage-2.png";
+    static final String PATH_CARROT_STAGE_3 = "img\\game\\obj\\Carrot\\Carrot-stage-3.png";
     /* END PLANT PATH */
  /* END PATH */
 
