@@ -2,6 +2,7 @@ feature\Shop$1.class
 proc\ModuleManager.class
 feature\GamePlay$3.class
 proc_data\SqlDataFarm.class
+proc_data\OverBoundControlException.class
 feature\MainFrame.class
 proc\Main.class
 feature\Basket$1.class

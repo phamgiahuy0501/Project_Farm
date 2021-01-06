@@ -19,6 +19,11 @@ public class JsData {
     public static JSONArray listFer = new JSONArray();
     public static JSONObject timePlant = new JSONObject();
     
+    public static void loadAll(String pathIDPlant, String pathIDFer, String pathTimePlant) {
+        loadListIDPlant(pathIDPlant);
+        loadListIDFer(pathIDFer);
+        loadTimePlant(pathTimePlant);
+    }
     
     public static void loadTimePlant(String path){
         timePlant.clear();

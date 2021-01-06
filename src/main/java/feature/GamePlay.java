@@ -94,7 +94,7 @@ public class GamePlay extends JPanel {
         add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 25, -1, -1));
         add(open_basket, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
 
-        initFreeGround();
+        loadGround();
 
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -140,8 +140,12 @@ public class GamePlay extends JPanel {
         });
     }
 
+    private void removeGround() {
+        System.out.println("remove ground");
+    }
+    
     // STEP GENERATE GROUND X-=100 Y+=65 i=4
-    private void initFreeGround() {
+    private void loadGround() {
         int i;
 
         Point start_row_1 = new Point(START_ROW_1);

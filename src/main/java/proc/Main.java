@@ -6,6 +6,8 @@ import feature.Shop;
 import feature.Menu;
 import feature.Basket;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLWarning;
 import proc_data.JsData;
 import proc_data.SqlData;
 import proc_data.SqlDataFarm;
@@ -18,15 +20,15 @@ public class Main {
     public static GamePlay gamePlay;
     public static Shop shop;
     public static Basket basket;
-
+    
+    private static final String JSONDATA_ID_PLANT = "jsdat\\id\\jsplant.json";
+    private static final String JSONDATA_ID_FERTILIZER = "jsdat\\id\\jsfer.json";
+    private static final String JSONDATA_TIME_PLANT = "jsdat\\id\\jstimeplant.json";
     public static void main(String[] args) {
-        JsData.loadListIDPlant("jsdat\\jsplant.json");
-        JsData.loadListIDFer("jsdat\\jsfer.json");
-        JsData.loadTimePlant("jsdat\\jstimeplant.json");
+        JsData.loadAll(JSONDATA_ID_PLANT, JSONDATA_ID_FERTILIZER, JSONDATA_TIME_PLANT);
 
         SqlData.initConnection("jdbc:mysql://localhost:3306/farm_game", "root", "050120");
-        SqlDataFarm.loadAllGround();
-        SqlDataFarm.display();
+
 //        mainFrame = new MainFrame();
 //        
 //        menu = new Menu();
@@ -36,6 +38,5 @@ public class Main {
 //        
 //        ModuleManager.plugIn(mainFrame, menu);
 //        mainFrame.setVisible(true);
-
     }
 }
