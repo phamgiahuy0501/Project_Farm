@@ -5,12 +5,8 @@ import feature.GamePlay;
 import feature.Shop;
 import feature.Menu;
 import feature.Basket;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.SQLWarning;
 import proc_data.JsData;
 import proc_data.SqlData;
-import proc_data.SqlDataFarm;
 
 public class Main {
 
@@ -30,7 +26,6 @@ public class Main {
         JsData.loadAll(JSONDATA_ID_PLANT, JSONDATA_ID_FERTILIZER, JSONDATA_TIME_PLANT, JSONDATA_PATH_GROUND);
 
         SqlData.initConnection("jdbc:mysql://localhost:3306/farm_game", "root", "050120");
-        
         
         mainFrame = new MainFrame();
         
