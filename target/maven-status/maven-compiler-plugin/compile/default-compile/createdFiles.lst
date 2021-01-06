@@ -5,6 +5,7 @@ proc_data\SqlDataFarm.class
 proc_data\OverBoundControlException.class
 feature\MainFrame.class
 proc\Main.class
+obj\Ground.class
 feature\Basket$1.class
 feature\Basket.class
 feature\Menu$2.class

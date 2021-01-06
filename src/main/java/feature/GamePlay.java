@@ -12,10 +12,17 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import obj.Ground;
 import proc.Main;
 import proc.ModuleManager;
+import proc_data.JsData;
+import proc_data.SqlDataFarm;
 
 /**
  *
@@ -25,13 +32,16 @@ public class GamePlay extends JPanel {
 
     static final int STEP_X = 100;
     static final int STEP_Y = 65;
-    static final int NUMBER_GROUND = 8;
+//    static final int NUMBER_GROUND = 8;
+    static final int NUMBER_GROUNDINROW = 4;
     static final int SIZE_GROUND_X = 100;
     static final int SIZE_GROUND_Y = 115;
-
-    static final Point START_ROW_1 = new Point(470, 90);
-    static final Point START_ROW_2 = new Point(610, 170);
-
+    
+    static final Point START = new Point(470, 90);
+//    static final Point START_ROW_2 = new Point(610, 170);
+//    
+    static final int DISTANCE_ROW_X = 140;
+    static final int DISTANCE_ROW_Y = 80;
     /* PATH */
  /* BACK GROUND */
     static final String PATH_BACKGROUND = "img\\game\\background\\Farm-ground.png";
@@ -46,23 +56,6 @@ public class GamePlay extends JPanel {
     static final String PATH_BACK = "img\\game\\icon\\Back-icon.png";
     /* END ICON */
 
- /* PLANT PATH */
-    static final String PATH_FREEGROUND = "img\\game\\obj\\Free-ground.png";
-
-    static final String PATH_TOMATO_STAGE_1 = "img\\game\\obj\\Tomato\\Tomato-stage-1.png";
-    static final String PATH_TOMATO_STAGE_2 = "img\\game\\obj\\Tomato\\Tomato-stage-2.png";
-    static final String PATH_TOMATO_STAGE_3 = "img\\game\\obj\\Tomato\\Tomato-stage-3.png";
-
-    static final String PATH_POTATO_STAGE_1 = "img\\game\\obj\\Potato\\Potato-stage-1.png";
-    static final String PATH_POTATO_STAGE_2 = "img\\game\\obj\\Potato\\Potato-stage-2.png";
-    static final String PATH_POTATO_STAGE_3 = "img\\game\\obj\\Potato\\Potato-stage-3.png";
-
-    static final String PATH_CARROT_STAGE_1 = "img\\game\\obj\\Carrot\\Carrot-stage-1.png";
-    static final String PATH_CARROT_STAGE_2 = "img\\game\\obj\\Carrot\\Carrot-stage-2.png";
-    static final String PATH_CARROT_STAGE_3 = "img\\game\\obj\\Carrot\\Carrot-stage-3.png";
-    /* END PLANT PATH */
- /* END PATH */
-
     JLabel background = new JLabel();
     JLabel bag_icon = new JLabel();
     JLabel shop_icon = new JLabel();
@@ -74,6 +67,8 @@ public class GamePlay extends JPanel {
 
     List<Point> listPoint = new ArrayList<>(); //list coordinate ground X Y
     List<JLabel> listGround = new ArrayList<>(); // list label ground
+
+    List<Ground> listGroundx = new ArrayList<>();
 
     public GamePlay() {
         setMaximumSize(new Dimension(800, 600));
@@ -94,6 +89,8 @@ public class GamePlay extends JPanel {
         add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 25, -1, -1));
         add(open_basket, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
 
+        
+        SqlDataFarm.loadAllGround();
         loadGround();
 
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -143,45 +140,64 @@ public class GamePlay extends JPanel {
     private void removeGround() {
         System.out.println("remove ground");
     }
-    
+
     // STEP GENERATE GROUND X-=100 Y+=65 i=4
     private void loadGround() {
-        int i;
+        ResultSet data = SqlDataFarm.getAllGround();
+        int i = 0;
 
-        Point start_row_1 = new Point(START_ROW_1);
-        Point start_row_2 = new Point(START_ROW_2);
+        try {
+            do {
+                int type = data.getInt(2);
+                long timeFinish = data.getLong(3);
+                int stage = calStage(getCurrentTime(), timeFinish, type);
 
-        for (i = 0; i < 4; i++) {
-            JLabel temp_jlabel = new JLabel();
+                JLabel tempJLabel = new JLabel();
+                tempJLabel.setIcon(new ImageIcon(JsData.getPathGround(type, stage)));
+                tempJLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-            temp_jlabel.setIcon(new ImageIcon(PATH_TOMATO_STAGE_3)); // path free ground
-            temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+                Point tempPoint = new Point(START.getX() + (i / NUMBER_GROUNDINROW) * DISTANCE_ROW_X - (i % NUMBER_GROUNDINROW) * STEP_X, START.getY() + (i / NUMBER_GROUNDINROW) * DISTANCE_ROW_Y + (i % NUMBER_GROUNDINROW) * STEP_Y);
+                add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), SIZE_GROUND_X, SIZE_GROUND_Y), 0);
 
-            add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_1.getX(), start_row_1.getY(), SIZE_GROUND_X, SIZE_GROUND_Y), 0);
-
-            listPoint.add(new Point(start_row_1));
-            listGround.add(temp_jlabel);
-
-            start_row_1.set(start_row_1.getX() - STEP_X, start_row_1.getY() + STEP_Y);
+                listGroundx.add(new Ground(type, timeFinish, tempJLabel, tempPoint));
+                ++i;
+            } while (data.next());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        for (; i < NUMBER_GROUND; i++) {
-            JLabel temp_jlabel = new JLabel();
-
-            if (i >= 6) {
-                temp_jlabel.setIcon(new ImageIcon(PATH_CARROT_STAGE_3)); // path free ground
-            } else {
-                temp_jlabel.setIcon(new ImageIcon(PATH_POTATO_STAGE_3)); // path free ground
-            }
-            temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-
-            add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_2.getX(), start_row_2.getY(), SIZE_GROUND_X, SIZE_GROUND_Y), 0);
-
-            listPoint.add(new Point(start_row_2));
-            listGround.add(temp_jlabel);
-
-            start_row_2.set(start_row_2.getX() - STEP_X, start_row_2.getY() + STEP_Y);
-        }
+//
+//        int i;
+//        for (i = 0; i < 4; i++) {
+//            JLabel temp_jlabel = new JLabel();
+//
+//            temp_jlabel.setIcon(new ImageIcon(PATH_TOMATO_STAGE_3)); // path free ground
+//            temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+//
+//            add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_1.getX(), start_row_1.getY(), SIZE_GROUND_X, SIZE_GROUND_Y), 0);
+//
+//            listPoint.add(new Point(start_row_1));
+//            listGround.add(temp_jlabel);
+//
+//            start_row_1.set(start_row_1.getX() - STEP_X, start_row_1.getY() + STEP_Y);
+//        }
+//
+//        for (; i < NUMBER_GROUND; i++) {
+//            JLabel temp_jlabel = new JLabel();
+//
+//            if (i >= 6) {
+//                temp_jlabel.setIcon(new ImageIcon(PATH_CARROT_STAGE_3)); // path free ground
+//            } else {
+//                temp_jlabel.setIcon(new ImageIcon(PATH_POTATO_STAGE_3)); // path free ground
+//            }
+//            temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+//
+//            add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_2.getX(), start_row_2.getY(), SIZE_GROUND_X, SIZE_GROUND_Y), 0);
+//
+//            listPoint.add(new Point(start_row_2));
+//            listGround.add(temp_jlabel);
+//
+//            start_row_2.set(start_row_2.getX() - STEP_X, start_row_2.getY() + STEP_Y);
+//        }
     }
 
     private void open_basketClicked(MouseEvent evt) {
@@ -222,5 +238,30 @@ public class GamePlay extends JPanel {
 
     private void bag_iconClicked(MouseEvent evt) {
         System.out.println("ok bag");
+    }
+
+    private long getCurrentTime() {
+        Date date = new Date(System.currentTimeMillis());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return ((cal.get(Calendar.YEAR) * 10000000000l + 100000000 * cal.get(Calendar.MONTH) + 1000000 * cal.get(Calendar.DATE) + 10000 * cal.get(Calendar.HOUR) + 100 * cal.get(Calendar.MINUTE) + cal.get(Calendar.SECOND)));
+    }
+
+    private int calStage(long timeCurr, long timeFinish, int typePlant) {
+        int growthPercent = calGrowthPercent(timeCurr, timeFinish, typePlant);
+
+        if (growthPercent >= 100) {
+            return 3;
+        } else if (growthPercent >= 50) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
+    private int calGrowthPercent(long timeCurr, long timeFinish, int typePlant) {
+        int timePlant = JsData.getTimePlant(JsData.getPlant(typePlant));
+
+        return ((int) (((timeCurr - timeFinish) * 100) / timePlant));
     }
 }
