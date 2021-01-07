@@ -22,10 +22,14 @@ public class Main {
     private static final String JSONDATA_TIME_PLANT = "jsdat\\id\\timeplant.json";
     private static final String JSONDATA_PATH_GROUND = "jsdat\\path\\plant.json";
     
+    private static final String SQL_HOST = "jdbc:mysql://localhost:3306/farm_game";
+    private static final String SQL_USER = "root";
+    private static final String SQL_PASS = "050120";
+    
     public static void main(String[] args) {
         JsData.loadAll(JSONDATA_ID_PLANT, JSONDATA_ID_FERTILIZER, JSONDATA_TIME_PLANT, JSONDATA_PATH_GROUND);
 
-        SqlData.initConnection("jdbc:mysql://localhost:3306/farm_game", "root", "050120");
+        SqlData.initConnection(SQL_HOST, SQL_USER, SQL_PASS);
         
         mainFrame = new MainFrame();
         

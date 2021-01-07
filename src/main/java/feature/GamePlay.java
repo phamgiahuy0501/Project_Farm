@@ -12,12 +12,14 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import obj.Ground;
 import proc.Main;
 import proc.ModuleManager;
@@ -32,14 +34,12 @@ public class GamePlay extends JPanel {
 
     static final int STEP_X = 100;
     static final int STEP_Y = 65;
-//    static final int NUMBER_GROUND = 8;
     static final int NUMBER_GROUNDINROW = 4;
-    static final int SIZE_GROUND_X = 100;
-    static final int SIZE_GROUND_Y = 115;
-    
+    static final int GROUND_WIDTH = 100;
+    static final int GROUND_HEIGHT = 115;
+
     static final Point START = new Point(470, 90);
-//    static final Point START_ROW_2 = new Point(610, 170);
-//    
+
     static final int DISTANCE_ROW_X = 140;
     static final int DISTANCE_ROW_Y = 80;
     /* PATH */
@@ -65,10 +65,7 @@ public class GamePlay extends JPanel {
 
     boolean volume_status = true;
 
-    List<Point> listPoint = new ArrayList<>(); //list coordinate ground X Y
-    List<JLabel> listGround = new ArrayList<>(); // list label ground
-
-    List<Ground> listGroundx = new ArrayList<>();
+    List<Ground> listGround = new ArrayList<>();
 
     public GamePlay() {
         setMaximumSize(new Dimension(800, 600));
@@ -89,7 +86,6 @@ public class GamePlay extends JPanel {
         add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 25, -1, -1));
         add(open_basket, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
 
-        
         SqlDataFarm.loadAllGround();
         loadGround();
 
@@ -150,54 +146,75 @@ public class GamePlay extends JPanel {
             do {
                 int type = data.getInt(2);
                 long timeFinish = data.getLong(3);
-                int stage = calStage(getCurrentTime(), timeFinish, type);
-
+                int stage = calStage(timeFinish, type);
+                final int index = i;
                 JLabel tempJLabel = new JLabel();
                 tempJLabel.setIcon(new ImageIcon(JsData.getPathGround(type, stage)));
                 tempJLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-                Point tempPoint = new Point(START.getX() + (i / NUMBER_GROUNDINROW) * DISTANCE_ROW_X - (i % NUMBER_GROUNDINROW) * STEP_X, START.getY() + (i / NUMBER_GROUNDINROW) * DISTANCE_ROW_Y + (i % NUMBER_GROUNDINROW) * STEP_Y);
-                add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), SIZE_GROUND_X, SIZE_GROUND_Y), 0);
+                tempJLabel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent evt) {
+                        groundClicked(evt, index);
+                    }
 
-                listGroundx.add(new Ground(type, timeFinish, tempJLabel, tempPoint));
+                    @Override
+                    public void mouseEntered(MouseEvent evt) {
+                        groundEntered(evt, index);
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent evt) {
+                        groundExited(evt, index);
+                    }
+                });
+
+                Point tempPoint = new Point(START.getX() + (i / NUMBER_GROUNDINROW) * DISTANCE_ROW_X - (i % NUMBER_GROUNDINROW) * STEP_X, START.getY() + (i / NUMBER_GROUNDINROW) * DISTANCE_ROW_Y + (i % NUMBER_GROUNDINROW) * STEP_Y);
+                add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), GROUND_WIDTH, GROUND_HEIGHT), 0);
+
+                listGround.add(new Ground(type, timeFinish, tempJLabel, tempPoint));
                 ++i;
             } while (data.next());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//
-//        int i;
-//        for (i = 0; i < 4; i++) {
-//            JLabel temp_jlabel = new JLabel();
-//
-//            temp_jlabel.setIcon(new ImageIcon(PATH_TOMATO_STAGE_3)); // path free ground
-//            temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-//
-//            add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_1.getX(), start_row_1.getY(), SIZE_GROUND_X, SIZE_GROUND_Y), 0);
-//
-//            listPoint.add(new Point(start_row_1));
-//            listGround.add(temp_jlabel);
-//
-//            start_row_1.set(start_row_1.getX() - STEP_X, start_row_1.getY() + STEP_Y);
-//        }
-//
-//        for (; i < NUMBER_GROUND; i++) {
-//            JLabel temp_jlabel = new JLabel();
-//
-//            if (i >= 6) {
-//                temp_jlabel.setIcon(new ImageIcon(PATH_CARROT_STAGE_3)); // path free ground
-//            } else {
-//                temp_jlabel.setIcon(new ImageIcon(PATH_POTATO_STAGE_3)); // path free ground
-//            }
-//            temp_jlabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-//
-//            add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(start_row_2.getX(), start_row_2.getY(), SIZE_GROUND_X, SIZE_GROUND_Y), 0);
-//
-//            listPoint.add(new Point(start_row_2));
-//            listGround.add(temp_jlabel);
-//
-//            start_row_2.set(start_row_2.getX() - STEP_X, start_row_2.getY() + STEP_Y);
-//        }
+    }
+
+    static boolean isInGround = false;
+
+    private void groundEntered(MouseEvent evt, int index) {
+        final Ground thisGround = listGround.get(index);
+        thisGround.showTimeLabel();
+        isInGround = true;
+        
+        Thread processEnter = new Thread() {
+            
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        thisGround.updateTimeLabel(calGrowthPercent(thisGround.getTimeFinish(), thisGround.getType()));
+                        if (!isInGround) {
+                            thisGround.hideTimeLabel();
+                            break;
+                        }
+                        sleep(100);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        processEnter.start();
+    }
+
+    private void groundExited(MouseEvent evt, int index) {
+        isInGround = false;
+    }
+
+    private void groundClicked(MouseEvent evt, int index) {
+
+        System.out.println(index);
     }
 
     private void open_basketClicked(MouseEvent evt) {
@@ -247,8 +264,14 @@ public class GamePlay extends JPanel {
         return ((cal.get(Calendar.YEAR) * 10000000000l + 100000000 * cal.get(Calendar.MONTH) + 1000000 * cal.get(Calendar.DATE) + 10000 * cal.get(Calendar.HOUR) + 100 * cal.get(Calendar.MINUTE) + cal.get(Calendar.SECOND)));
     }
 
-    private int calStage(long timeCurr, long timeFinish, int typePlant) {
-        int growthPercent = calGrowthPercent(timeCurr, timeFinish, typePlant);
+    private float calGrowthPercent(long timeFinish, int typePlant) {
+        int timePlant = JsData.getTimePlant(JsData.getPlant(typePlant));
+
+        return (float) (getCurrentTime() - (timeFinish - timePlant)) * 100 / timePlant;
+    }
+
+    private int calStage(long timeFinish, int typePlant) {
+        float growthPercent = calGrowthPercent(timeFinish, typePlant);
 
         if (growthPercent >= 100) {
             return 3;
@@ -257,11 +280,5 @@ public class GamePlay extends JPanel {
         } else {
             return 1;
         }
-    }
-
-    private int calGrowthPercent(long timeCurr, long timeFinish, int typePlant) {
-        int timePlant = JsData.getTimePlant(JsData.getPlant(typePlant));
-
-        return ((int) (((timeCurr - timeFinish) * 100) / timePlant));
     }
 }

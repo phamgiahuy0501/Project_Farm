@@ -5,6 +5,7 @@
  */
 package obj;
 
+import java.awt.FlowLayout;
 import javax.swing.JLabel;
 
 /**
@@ -22,6 +23,7 @@ public class MyLabel {
     
     public MyLabel(JLabel label, Point point) {
         this.label = label;
+        this.label.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.point = point;
     }
     
@@ -39,5 +41,9 @@ public class MyLabel {
     
     public void setLabel(JLabel label) {
         this.label = label;
+    }
+    
+    void addTimeLable(JLabel timeLabel) {
+        label.add(timeLabel);
     }
 }
