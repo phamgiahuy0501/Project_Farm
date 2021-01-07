@@ -42,8 +42,8 @@ public class GamePlay extends JPanel {
 
     static final int DISTANCE_ROW_X = 140;
     static final int DISTANCE_ROW_Y = 80;
-    /* PATH */
- /* BACK GROUND */
+
+    /* BACK GROUND */
     static final String PATH_BACKGROUND = "img\\game\\background\\Farm-ground.png";
     /* END BACK GROUND */
 
@@ -137,7 +137,6 @@ public class GamePlay extends JPanel {
         System.out.println("remove ground");
     }
 
-    // STEP GENERATE GROUND X-=100 Y+=65 i=4
     private void loadGround() {
         ResultSet data = SqlDataFarm.getAllGround();
         int i = 0;
@@ -147,11 +146,9 @@ public class GamePlay extends JPanel {
                 int type = data.getInt(2);
                 long timeFinish = data.getLong(3);
                 int stage = calStage(timeFinish, type);
-                final int index = i;
+                int index = i;
                 JLabel tempJLabel = new JLabel();
-                tempJLabel.setIcon(new ImageIcon(JsData.getPathGround(type, stage)));
-                tempJLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-
+                
                 tempJLabel.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent evt) {
@@ -180,36 +177,14 @@ public class GamePlay extends JPanel {
         }
     }
 
-    static boolean isInGround = false;
-
     private void groundEntered(MouseEvent evt, int index) {
-        final Ground thisGround = listGround.get(index);
-        thisGround.showTimeLabel();
-        isInGround = true;
-        
-        Thread processEnter = new Thread() {
-            
-            @Override
-            public void run() {
-                try {
-                    while (true) {
-                        thisGround.updateTimeLabel(calGrowthPercent(thisGround.getTimeFinish(), thisGround.getType()));
-                        if (!isInGround) {
-                            thisGround.hideTimeLabel();
-                            break;
-                        }
-                        sleep(100);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        processEnter.start();
+        Ground thisGround = listGround.get(index);
+        thisGround.showTimeLabel();   
     }
 
     private void groundExited(MouseEvent evt, int index) {
-        isInGround = false;
+        Ground thisGround = listGround.get(index);
+        thisGround.hideTimeLabel();
     }
 
     private void groundClicked(MouseEvent evt, int index) {
@@ -257,20 +232,20 @@ public class GamePlay extends JPanel {
         System.out.println("ok bag");
     }
 
-    private long getCurrentTime() {
+    private static long getCurrentTime() {
         Date date = new Date(System.currentTimeMillis());
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return ((cal.get(Calendar.YEAR) * 10000000000l + 100000000 * cal.get(Calendar.MONTH) + 1000000 * cal.get(Calendar.DATE) + 10000 * cal.get(Calendar.HOUR) + 100 * cal.get(Calendar.MINUTE) + cal.get(Calendar.SECOND)));
     }
 
-    private float calGrowthPercent(long timeFinish, int typePlant) {
+    public static float calGrowthPercent(long timeFinish, int typePlant) {
         int timePlant = JsData.getTimePlant(JsData.getPlant(typePlant));
 
         return (float) (getCurrentTime() - (timeFinish - timePlant)) * 100 / timePlant;
     }
 
-    private int calStage(long timeFinish, int typePlant) {
+    public static int calStage(long timeFinish, int typePlant) {
         float growthPercent = calGrowthPercent(timeFinish, typePlant);
 
         if (growthPercent >= 100) {

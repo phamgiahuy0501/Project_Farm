@@ -7,6 +7,7 @@ package obj;
 
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -24,6 +25,7 @@ public class MyLabel {
     public MyLabel(JLabel label, Point point) {
         this.label = label;
         this.label.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.label.setVerticalAlignment(SwingConstants.BOTTOM);
         this.point = point;
     }
     

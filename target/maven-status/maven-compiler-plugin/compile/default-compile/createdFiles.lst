@@ -1,5 +1,4 @@
 feature\Shop$1.class
-feature\GamePlay$8.class
 proc\ModuleManager.class
 feature\GamePlay$3.class
 proc_data\SqlDataFarm.class
@@ -12,6 +11,7 @@ feature\Basket.class
 feature\Menu$2.class
 feature\Options.class
 feature\GamePlay.class
+obj\Ground$1.class
 obj\MyLabel.class
 feature\Basket$3.class
 feature\GamePlay$5.class
