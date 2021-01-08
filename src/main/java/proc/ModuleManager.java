@@ -1,6 +1,7 @@
 
 package proc;
 
+import feature.GamePlay;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -17,6 +18,10 @@ public class ModuleManager {
     public static void plugOut(JFrame frame, JPanel panel) {
         frame.remove(panel);
     }
+    
+    public static void resumeProcess(GamePlay gamePlay) {
+        gamePlay.resumeProcess();
+    } 
     
     public static void clearPlug(JFrame frame) {
         frame.getContentPane().removeAll();

@@ -145,7 +145,6 @@ public class GamePlay extends JPanel {
             do {
                 int type = data.getInt(2);
                 long timeFinish = data.getLong(3);
-                int stage = calStage(timeFinish, type);
                 int index = i;
                 JLabel tempJLabel = new JLabel();
                 
@@ -167,7 +166,8 @@ public class GamePlay extends JPanel {
                 });
 
                 Point tempPoint = new Point(START.getX() + (i / NUMBER_GROUNDINROW) * DISTANCE_ROW_X - (i % NUMBER_GROUNDINROW) * STEP_X, START.getY() + (i / NUMBER_GROUNDINROW) * DISTANCE_ROW_Y + (i % NUMBER_GROUNDINROW) * STEP_Y);
-                add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), GROUND_WIDTH, GROUND_HEIGHT), 0);
+                
+                add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), GROUND_WIDTH, GROUND_HEIGHT));
 
                 listGround.add(new Ground(type, timeFinish, tempJLabel, tempPoint));
                 ++i;
@@ -217,9 +217,23 @@ public class GamePlay extends JPanel {
         }
     }
 
+    private void pauseProcess() {
+        listGround.forEach((ground) -> {
+            ground.pauseProcess();
+        });
+    }
+    
+    public void resumeProcess() {
+        listGround.forEach((ground) -> {
+            ground.resumeProcess();
+        });
+    }
+    
     private void shop_iconClicked(MouseEvent evt) {
         ModuleManager.plugIn(Main.mainFrame, Main.shop, 0);
-
+        
+        pauseProcess();
+        
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }

@@ -134,7 +134,9 @@ public class Shop extends JPanel {
 
     private void closeClicked(MouseEvent evt) {
         ModuleManager.plugOut(Main.mainFrame, this);
-
+        
+        ModuleManager.resumeProcess(Main.gamePlay);
+        
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }
@@ -191,9 +193,19 @@ public class Shop extends JPanel {
 
                 temp_jlabel.setIcon(new ImageIcon(LIST_PATH.get(i)));
 
+                temp_jlabel.addMouseListener(new MouseAdapter() {
+                
+                    @Override
+                    public void mouseClicked(MouseEvent evt) {
+                        cardClicked(evt);
+                    }
+                });
+                
                 Point temp_point = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
                 add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(temp_point.getX(), temp_point.getY(), -1, -1), 0);
-
+                
+                
+                
                 listSeedCard.add(new MyLabel(temp_jlabel, new Point(temp_point)));
             }
         } else {
@@ -202,4 +214,8 @@ public class Shop extends JPanel {
             });
         }
     }
+    
+    private void cardClicked(MouseEvent evt) {
+        System.out.println("ok card");
+    } 
 }

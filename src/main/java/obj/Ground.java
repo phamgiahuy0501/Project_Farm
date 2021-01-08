@@ -21,6 +21,7 @@ public class Ground extends MyLabel {
     long timeFinish;
     Thread process;
     final JLabel timeLabel = new JLabel();
+    public boolean processPause = false;
 
     public Ground() {
         super();
@@ -36,16 +37,18 @@ public class Ground extends MyLabel {
         label.setLayout(new FlowLayout(FlowLayout.CENTER));
         addTimeLable(timeLabel);
         this.timeLabel.setVisible(false);
-        
+
         process = new Thread() {
             @Override
             public void run() {
                 try {
                     while (true) {
-                        label.setIcon(new ImageIcon(JsData.getPathGround(type, GamePlay.calStage(timeFinish, type))));
-                        updateTimeLabel(GamePlay.calGrowthPercent(timeFinish, type));
-                        
-                        sleep(100);
+                        if (!processPause) {
+                            label.setIcon(new ImageIcon(JsData.getPathGround(type, GamePlay.calStage(timeFinish, type))));
+                            updateTimeLabel(GamePlay.calGrowthPercent(timeFinish, type));
+                        }
+
+                        sleep(500);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -55,6 +58,16 @@ public class Ground extends MyLabel {
         process.start();
     }
 
+    public void pauseProcess() {
+        processPause = true;
+        label.setVisible(!processPause);
+    }
+    
+    public void resumeProcess() {
+        processPause = false;
+        label.setVisible(!processPause);
+    }
+    
     public void hideTimeLabel() {
         timeLabel.setVisible(false);
         label.revalidate();

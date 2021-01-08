@@ -38,7 +38,7 @@ public class Main {
         shop = new Shop();
         basket = new Basket();
         
-        ModuleManager.plugIn(mainFrame, menu);
+        ModuleManager.plugIn(mainFrame, gamePlay);
         mainFrame.setVisible(true);
     }
 }
