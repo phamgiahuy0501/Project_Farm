@@ -23,6 +23,14 @@ public class ModuleManager {
             gamePlay.resumeProcess();
         }
     }
+    
+    public static int getMoney(GamePlay gamePlay) {
+        return gamePlay.getMoney();
+    }
+    
+    public static void updateMoney(GamePlay gamePlay, int amount) {
+        gamePlay.updateMoney(amount);
+    }
 
     public static void clearPlug(JFrame frame) {
         frame.getContentPane().removeAll();

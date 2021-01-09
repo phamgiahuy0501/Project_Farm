@@ -134,6 +134,15 @@ public class GamePlay extends JPanel {
         });
     }
 
+    public int getMoney() {
+        return money;
+    }
+    
+    public void updateMoney(int amount) {
+        SqlDataMoney.updateMoney(amount);
+        System.out.println("Update money success");
+    }
+    
     private void loadResource() {
         loadGround();
         money = SqlDataMoney.getMoney();

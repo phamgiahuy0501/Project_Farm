@@ -13,8 +13,10 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import obj.Card;
 import proc.Main;
 import proc.ModuleManager;
@@ -135,6 +137,14 @@ public class Shop extends JPanel {
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }
+    
+    private int getMoney() {
+        return ModuleManager.getMoney(Main.gamePlay);
+    }
+    
+    private void updateMoney(int amount) {
+        ModuleManager.updateMoney(Main.gamePlay, amount);
+    }
 
     private void closeClicked(MouseEvent evt) {
         ModuleManager.plugOut(Main.mainFrame, this);
@@ -167,7 +177,7 @@ public class Shop extends JPanel {
                 temp_jlabel.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent evt) {
-                        cardClicked(evt, 1, type);
+                        cardClicked(evt, 1, type, type);
                     }
                 });
                 
@@ -193,7 +203,7 @@ public class Shop extends JPanel {
                 temp_jlabel.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent evt) {
-                        cardClicked(evt, 0, type);
+                        cardClicked(evt, 0, type, type - 1);
                     }
                 });
 
@@ -209,7 +219,41 @@ public class Shop extends JPanel {
         }
     }
 
-    private void cardClicked(MouseEvent evt, int brand, int type) {
+    private void cardClicked(MouseEvent evt, int brand, int type, int index_listCard) {
         System.out.println(JsData.getPrice(brand, type));
+        System.out.println(getMoney());
+        
+        ReviewAmount test = new ReviewAmount(0, 2);
+    }
+}
+
+class ReviewAmount {
+    JLabel amount_total = new JLabel();
+    JLabel buy = new JLabel();
+    JLabel closeButton = new JLabel();
+    JSlider slider = new JSlider();
+    
+    private static final String PATH_CLOSE = "img\\review_buy\\icon\\Close-icon.png";
+    
+    public ReviewAmount() {
+        buy.setText("BUY");
+        buy.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                buyClicked(evt);
+            }
+        });
+        
+        slider.setPreferredSize(new Dimension(100, 10));
+        
+        closeButton.setIcon(new ImageIcon(PATH_CLOSE));
+    }
+    
+    public ReviewAmount(int money, int price) {
+        this();
+    }
+    
+    private void buyClicked(MouseEvent evt) {
+        System.out.println("buy clicked");
     }
 }
