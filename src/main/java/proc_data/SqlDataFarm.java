@@ -54,7 +54,7 @@ public class SqlDataFarm extends SqlData {
     }
     
     private static boolean validBound(int index) {
-        if (index < 1 || index > 6) {
+        if (index < 1 || index > 8) {
             return false;
         }
         return true;

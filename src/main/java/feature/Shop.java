@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import obj.Card;
 import proc.Main;
 import proc.ModuleManager;
+import proc_data.JsData;
 
 /**
  *
@@ -209,6 +210,6 @@ public class Shop extends JPanel {
     }
 
     private void cardClicked(MouseEvent evt, int brand, int type) {
-        System.out.println("ok card");
+        System.out.println(JsData.getPrice(brand, type));
     }
 }

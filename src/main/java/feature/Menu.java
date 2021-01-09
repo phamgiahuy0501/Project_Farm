@@ -79,7 +79,8 @@ public class Menu extends JPanel {
         ModuleManager.plugOut(Main.mainFrame, this);
 
         ModuleManager.plugIn(Main.mainFrame, Main.gamePlay);
-
+        ModuleManager.resumeProcess(Main.gamePlay);
+        
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }

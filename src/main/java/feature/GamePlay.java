@@ -12,14 +12,12 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import obj.Ground;
 import proc.Main;
 import proc.ModuleManager;
@@ -175,6 +173,10 @@ public class GamePlay extends JPanel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public boolean isListGroundNull() {
+        return listGround.isEmpty();
     }
 
     private void groundEntered(MouseEvent evt, int index) {

@@ -6,6 +6,7 @@
 package proc_data;
 
 import java.io.FileReader;
+import jdk.nashorn.api.scripting.JSObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,18 +22,28 @@ public class JsData {
     private static JSONObject timePlant = new JSONObject();
     private static JSONObject pathsGround = new JSONObject();
     private static JSONObject pathsCard = new JSONObject();
-
-    public static void loadAll(String pathIDPlant, String pathIDFer, String pathTimePlant, String pathGround, String pathCard) {
+    private static JSONObject priceAll = new JSONObject();
+    
+    
+    public static void loadAll(String pathIDPlant, String pathIDFer, String pathTimePlant, String pathGround, String pathCard, String pathPrice) {
         loadListIDPlant(pathIDPlant);
         loadListIDFer(pathIDFer);
         loadTimePlant(pathTimePlant);
         loadPathsGround(pathGround);
         loadPathsCard(pathCard);
+        loadPriceAll(pathPrice);
     }
 
+    public static void loadPriceAll(String path) {
+        JSONParser parser = new JSONParser();
+        try (FileReader file = new FileReader(path)){
+            priceAll = (JSONObject) parser.parse(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     public static void loadTimePlant(String path) {
-        timePlant.clear();
-
         JSONParser parser = new JSONParser();
         try ( FileReader file = new FileReader(path)) {
             timePlant = (JSONObject) parser.parse(file);
@@ -42,8 +53,6 @@ public class JsData {
     }
 
     public static void loadListIDPlant(String path) {
-        listPlant.clear();
-
         JSONParser parser = new JSONParser();
         try ( FileReader file = new FileReader(path)) {
             listPlant = (JSONArray) parser.parse(file);
@@ -53,8 +62,6 @@ public class JsData {
     }
 
     public static void loadListIDFer(String path) {
-        listFer.clear();
-
         JSONParser parser = new JSONParser();
         try ( FileReader file = new FileReader(path)) {
             listFer = (JSONArray) parser.parse(file);
@@ -77,9 +84,17 @@ public class JsData {
         try ( FileReader file = new FileReader(path)) {
             pathsCard = (JSONObject) parser.parse(file);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    public static int getPrice(int brand, int type) {
+        if (brand == 0) {
+            return Integer.parseInt(((JSONArray) priceAll.get("Seed")).get(type).toString());
+        } 
+        return Integer.parseInt(((JSONArray) priceAll.get("Fertilizer")).get(type).toString());
+    }
+    
     public static String getPathGround(int type, int stage) {
         if (type != 0) {
             return ((JSONObject) pathsGround.get(getPlant(type))).get("Stage " + stage).toString();
