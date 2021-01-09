@@ -29,6 +29,10 @@ public class MyLabel {
         this.point = point;
     }
     
+    public void visible(boolean check) {
+        label.setVisible(check);
+    }
+    
     public Point getPoint() {
         return point;
     }

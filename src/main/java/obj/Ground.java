@@ -60,12 +60,12 @@ public class Ground extends MyLabel {
 
     public void pauseProcess() {
         processPause = true;
-        label.setVisible(!processPause);
+        visible(!processPause);
     }
     
     public void resumeProcess() {
         processPause = false;
-        label.setVisible(!processPause);
+        visible(!processPause);
     }
     
     public void hideTimeLabel() {

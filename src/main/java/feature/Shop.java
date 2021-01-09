@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import obj.Card;
 import proc.Main;
 import proc.ModuleManager;
 
@@ -27,7 +28,9 @@ public class Shop extends JPanel {
     static final int STEP_X = 140;
     static final int STEP_Y = 170;
     static final int NUMBER_CARDINROW = 4;
-
+    static final int NUMBER_SEED_CARD = 6;
+    static final int NUMBER_FERTILIZER_CARD = 3;
+    
     static final Point START = new Point(130, 200);
 
     JLabel background = new JLabel();
@@ -66,8 +69,8 @@ public class Shop extends JPanel {
  /* END CARD */
  /* END PATH */
 
-    List<MyLabel> listSeedCard = new ArrayList<>();
-    List<MyLabel> listFertilizerCard = new ArrayList<>();
+    List<Card> listSeedCard = new ArrayList<>();
+    List<Card> listFertilizerCard = new ArrayList<>();
 
     public Shop() {
         setMaximumSize(new Dimension(800, 600));
@@ -134,88 +137,78 @@ public class Shop extends JPanel {
 
     private void closeClicked(MouseEvent evt) {
         ModuleManager.plugOut(Main.mainFrame, this);
-        
+
         ModuleManager.resumeProcess(Main.gamePlay);
-        
+
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }
 
     private void removeSeedCart() {
-        listSeedCard.forEach(mylabel -> {
-            remove(mylabel.getLabel());
+        listSeedCard.forEach(card -> {
+            card.visible(false);
         });
     }
 
     private void removeFertilizerCard() {
-        listFertilizerCard.forEach(mylabel -> {
-            remove(mylabel.getLabel());
+        listFertilizerCard.forEach(card -> {
+            card.visible(false);
         });
     }
 
     private void initFertilizerCard() {
         if (listFertilizerCard.isEmpty()) {
-
-            List<String> LIST_PATH = new ArrayList<>();
-            LIST_PATH.add(PATH_SMALL_FERTILIZER_CARD);
-            LIST_PATH.add(PATH_MEDIUM_FERTILIZER_CARD);
-            LIST_PATH.add(PATH_BIG_FERTILIZER_CARD);
-
-            for (int i = 0; i < LIST_PATH.size(); i++) {
+            for (int i = 0; i < NUMBER_FERTILIZER_CARD; i++) {
                 JLabel temp_jlabel = new JLabel();
-                temp_jlabel.setIcon(new ImageIcon(LIST_PATH.get(i)));
-
+                
+                final int type = i;
+                
+                temp_jlabel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent evt) {
+                        cardClicked(evt, 1, type);
+                    }
+                });
+                
                 Point temp_point = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
                 add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(temp_point.getX(), temp_point.getY(), -1, -1), 0);
 
-                listFertilizerCard.add(new MyLabel(temp_jlabel, new Point(temp_point)));
+                listFertilizerCard.add(new Card(1, type, temp_jlabel, temp_point));
             }
         } else {
-            listFertilizerCard.forEach((mylabel) -> {
-                add(mylabel.getLabel(), new org.netbeans.lib.awtextra.AbsoluteConstraints(mylabel.getPoint().getX(), mylabel.getPoint().getY()), 0);
+            listFertilizerCard.forEach((card) ->{
+                card.visible(true);
             });
         }
     }
 
     private void initSeedCart() {
         if (listSeedCard.isEmpty()) {
-
-            List<String> LIST_PATH = new ArrayList<>();
-            LIST_PATH.add(PATH_CARROT_CARD);
-            LIST_PATH.add(PATH_POTATO_CARD);
-            LIST_PATH.add(PATH_TOMATO_CARD);
-            LIST_PATH.add(PATH_CORN_CARD);
-            LIST_PATH.add(PATH_PEAS_CARD);
-            LIST_PATH.add(PATH_CABBAGE_CARD);
-
-            for (int i = 0; i < LIST_PATH.size(); i++) {
+            for (int i = 0; i < NUMBER_SEED_CARD; i++) {
                 JLabel temp_jlabel = new JLabel();
-
-                temp_jlabel.setIcon(new ImageIcon(LIST_PATH.get(i)));
-
-                temp_jlabel.addMouseListener(new MouseAdapter() {
                 
+                final int type = i + 1;
+                
+                temp_jlabel.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent evt) {
-                        cardClicked(evt);
+                        cardClicked(evt, 0, type);
                     }
                 });
-                
+
                 Point temp_point = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
                 add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(temp_point.getX(), temp_point.getY(), -1, -1), 0);
-                
-                
-                
-                listSeedCard.add(new MyLabel(temp_jlabel, new Point(temp_point)));
+
+                listSeedCard.add(new Card(0, type, temp_jlabel, temp_point));
             }
         } else {
-            listSeedCard.forEach((mylabel) -> {
-                add(mylabel.getLabel(), new org.netbeans.lib.awtextra.AbsoluteConstraints(mylabel.getPoint().getX(), mylabel.getPoint().getY()), 0);
+            listSeedCard.forEach((card) -> {
+                card.visible(true);
             });
         }
     }
-    
-    private void cardClicked(MouseEvent evt) {
+
+    private void cardClicked(MouseEvent evt, int brand, int type) {
         System.out.println("ok card");
-    } 
+    }
 }

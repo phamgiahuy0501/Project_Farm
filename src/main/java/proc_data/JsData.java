@@ -16,16 +16,18 @@ import org.json.simple.parser.JSONParser;
  */
 public class JsData {
 
-    public static JSONArray listPlant = new JSONArray();
-    public static JSONArray listFer = new JSONArray();
-    public static JSONObject timePlant = new JSONObject();
-    public static JSONObject pathsGround = new JSONObject();
+    private static JSONArray listPlant = new JSONArray();
+    private static JSONArray listFer = new JSONArray();
+    private static JSONObject timePlant = new JSONObject();
+    private static JSONObject pathsGround = new JSONObject();
+    private static JSONObject pathsCard = new JSONObject();
 
-    public static void loadAll(String pathIDPlant, String pathIDFer, String pathTimePlant, String pathGround) {
+    public static void loadAll(String pathIDPlant, String pathIDFer, String pathTimePlant, String pathGround, String pathCard) {
         loadListIDPlant(pathIDPlant);
         loadListIDFer(pathIDFer);
         loadTimePlant(pathTimePlant);
         loadPathsGround(pathGround);
+        loadPathsCard(pathCard);
     }
 
     public static void loadTimePlant(String path) {
@@ -70,6 +72,14 @@ public class JsData {
         }
     }
 
+    public static void loadPathsCard(String path) {
+        JSONParser parser = new JSONParser();
+        try ( FileReader file = new FileReader(path)) {
+            pathsCard = (JSONObject) parser.parse(file);
+        } catch (Exception e) {
+        }
+    }
+
     public static String getPathGround(int type, int stage) {
         if (type != 0) {
             return ((JSONObject) pathsGround.get(getPlant(type))).get("Stage " + stage).toString();
@@ -83,6 +93,14 @@ public class JsData {
 
     public static String getFertilizer(int index) {
         return listFer.get(index).toString();
+    }
+
+    public static String getPathCard(int brand, int type) {
+        if (brand == 0) {// 0 = seed 
+            return ((JSONObject) pathsCard.get("Seed")).get(listPlant.get(type)).toString();
+        }
+        // 1 = fertilizer
+        return ((JSONObject) pathsCard.get("Fertilizer")).get(listFer.get(type)).toString();
     }
 
     public static int getTimePlant(String plantName) {

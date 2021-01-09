@@ -5,22 +5,33 @@
  */
 package obj;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import proc_data.JsData;
 
 /**
  *
  * @author kazen
  */
+//  brand = 0 - seed
+// brand = 1 - fertilizer
 public class Card extends MyLabel {
+    int brand;
     int type;
-
+    
     public Card() {
         super();
+        brand = -1;
+        type = -1;
     }
 
-    public Card(int type, JLabel label, Point point) {
+    public Card(int brand, int type ,JLabel label, Point point) {
         super(label, point);
         this.type = type;
+        this.brand = brand;
+        
+        label.setIcon(new ImageIcon(JsData.getPathCard(brand, type)));
+       
     }
     
     public int getType() {
