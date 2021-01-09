@@ -23,6 +23,7 @@ import proc.Main;
 import proc.ModuleManager;
 import proc_data.JsData;
 import proc_data.SqlDataFarm;
+import proc_data.SqlDataMoney;
 
 /**
  *
@@ -62,7 +63,9 @@ public class GamePlay extends JPanel {
     JLabel volume = new JLabel();
 
     boolean volume_status = true;
-
+    
+    public static int money;
+    
     List<Ground> listGround = new ArrayList<>();
 
     public GamePlay() {
@@ -85,7 +88,7 @@ public class GamePlay extends JPanel {
         add(open_basket, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
 
         SqlDataFarm.loadAllGround();
-        loadGround();
+        loadResource();
 
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -131,8 +134,9 @@ public class GamePlay extends JPanel {
         });
     }
 
-    private void removeGround() {
-        System.out.println("remove ground");
+    private void loadResource() {
+        loadGround();
+        money = SqlDataMoney.getMoney();
     }
 
     private void loadGround() {

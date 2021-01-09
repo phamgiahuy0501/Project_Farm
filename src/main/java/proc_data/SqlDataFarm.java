@@ -48,16 +48,13 @@ public class SqlDataFarm extends SqlData {
         try {
             resultSet = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM farm");
             resultSet.next();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     
     private static boolean validBound(int index) {
-        if (index < 1 || index > 8) {
-            return false;
-        }
-        return true;
+        return !(index < 1 || index > 8);
     }
 }
 

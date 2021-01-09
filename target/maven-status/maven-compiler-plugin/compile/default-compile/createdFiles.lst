@@ -6,6 +6,7 @@ proc_data\OverBoundControlException.class
 feature\MainFrame.class
 proc\Main.class
 obj\Ground.class
+proc_data\SqlDtataBasket.class
 feature\Basket$1.class
 feature\Shop$4.class
 feature\Basket.class
@@ -17,6 +18,7 @@ obj\MyLabel.class
 feature\Basket$3.class
 feature\GamePlay$5.class
 feature\GamePlay$2.class
+proc_data\SqlDataMoney.class
 feature\Menu.class
 obj\Point.class
 proc_data\JsData.class
