@@ -23,7 +23,7 @@ import proc.Main;
 import proc.ModuleManager;
 import proc_data.JsData;
 import proc_data.SqlDataFarm;
-import proc_data.SqlDataMoney;
+import proc_data.SqlDataItem;
 
 /**
  *
@@ -139,13 +139,13 @@ public class GamePlay extends JPanel {
     }
     
     public void updateMoney(int amount) {
-        SqlDataMoney.updateMoney(amount);
+        SqlDataItem.updateMoney(amount);
         System.out.println("Update money success");
     }
     
     private void loadResource() {
         loadGround();
-        money = SqlDataMoney.getMoney();
+        money = SqlDataItem.getMoney();
     }
 
     private void loadGround() {

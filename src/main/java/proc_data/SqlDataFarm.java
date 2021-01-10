@@ -18,6 +18,7 @@ public class SqlDataFarm extends SqlData {
 
     public static ResultSet getSpecificGround(int index) {
         try {
+            if (resultSet == null) throw new NullPointerException();
             if (!validBound(index)) throw new OverBoundControlException(index);
             
             resultSet.first();
@@ -47,10 +48,16 @@ public class SqlDataFarm extends SqlData {
     public static void loadAllGround() {
         try {
             resultSet = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM farm");
-            resultSet.next();
+            if (isEmptySet()) {
+                throw new SQLException();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    private static boolean isEmptySet() throws SQLException {
+        return !resultSet.next();
     }
     
     private static boolean validBound(int index) {

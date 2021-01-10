@@ -7,7 +7,8 @@ import feature.Menu;
 import feature.Basket;
 import proc_data.JsData;
 import proc_data.SqlData;
-import proc_data.SqlDataMoney;
+import proc_data.SqlDataFarm;
+import proc_data.SqlDataItem;
 
 public class Main {
 
@@ -33,7 +34,7 @@ public class Main {
         loadData();
         loadComponent();
         
-        ModuleManager.plugIn(mainFrame, menu);
+        ModuleManager.plugIn(mainFrame, gamePlay);
         mainFrame.setVisible(true);
     }
 

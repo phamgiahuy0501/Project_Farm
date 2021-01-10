@@ -1,1 +1,2 @@
 money : brand(0) type(0) 
+seed : brand(1)

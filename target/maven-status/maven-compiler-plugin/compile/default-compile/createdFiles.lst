@@ -1,9 +1,12 @@
+feature\ReviewAmount$3.class
 feature\Shop$1.class
 proc\ModuleManager.class
 feature\GamePlay$3.class
 proc_data\SqlDataFarm.class
+feature\Shop$6.class
 proc_data\OverBoundControlException.class
 feature\MainFrame.class
+feature\ReviewAmount$1.class
 proc\Main.class
 obj\Ground.class
 proc_data\SqlDtataBasket.class
@@ -19,11 +22,12 @@ feature\Basket$3.class
 feature\ReviewAmount.class
 feature\GamePlay$5.class
 feature\GamePlay$2.class
-proc_data\SqlDataMoney.class
 feature\Menu.class
+feature\ReviewAmount$2.class
 obj\Point.class
 proc_data\JsData.class
 feature\Menu$3.class
+proc_data\SqlDataItem.class
 feature\GamePlay$7.class
 obj\Card.class
 feature\Shop$2.class
