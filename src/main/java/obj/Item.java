@@ -15,17 +15,17 @@ import proc_data.JsData;
  */
 //  brand = 0 - seed
 // brand = 1 - fertilizer
-public class Card extends MyLabel {
+public class Item extends MyLabel {
     int brand;
     int type;
     
-    public Card() {
+    public Item() {
         super();
         brand = -1;
         type = -1;
     }
 
-    public Card(int brand, int type ,JLabel label, Point point) {
+    public Item(int brand, int type ,JLabel label, Point point) {
         super(label, point);
         this.type = type;
         this.brand = brand;

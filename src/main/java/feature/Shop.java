@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import obj.Card;
+import obj.Item;
 import proc.Main;
 import proc.ModuleManager;
 import proc_data.JsData;
@@ -54,27 +54,10 @@ public class Shop extends JPanel {
     static final String PATH_FERTILIZER_LIGHTER = "D:\\Project_Farm\\img\\shop\\icon\\Fertilizer-tag-lighter-icon.png";
     static final String PATH_CLOSE = "D:\\Project_Farm\\img\\shop\\icon\\Close-icon.png";
     /* END ICON */
-
- /* CARD */
- /* SEED */
-    static final String PATH_CABBAGE_CARD = "D:\\Project_Farm\\img\\shop\\card\\seed\\Cabbage-card-price.png";
-    static final String PATH_CARROT_CARD = "D:\\Project_Farm\\img\\shop\\card\\seed\\Carrot-card-price.png";
-    static final String PATH_CORN_CARD = "D:\\Project_Farm\\img\\shop\\card\\seed\\Corn-card-price.png";
-    static final String PATH_PEAS_CARD = "D:\\Project_Farm\\img\\shop\\card\\seed\\Peas-card-price.png";
-    static final String PATH_POTATO_CARD = "D:\\Project_Farm\\img\\shop\\card\\seed\\Potato-card-price.png";
-    static final String PATH_TOMATO_CARD = "D:\\Project_Farm\\img\\shop\\card\\seed\\Tomato-card-price.png";
-    /* END SEED */
-
- /* FERTILIZER */
-    static final String PATH_SMALL_FERTILIZER_CARD = "D:\\Project_Farm\\img\\shop\\card\\fertilizer\\Small-fertilizer-card-price.png";
-    static final String PATH_MEDIUM_FERTILIZER_CARD = "D:\\Project_Farm\\img\\shop\\card\\fertilizer\\Medium-fertilizer-card-price.png";
-    static final String PATH_BIG_FERTILIZER_CARD = "D:\\Project_Farm\\img\\shop\\card\\fertilizer\\Big-fertilizer-card-price.png";
-    /* END FERTILIZER */
- /* END CARD */
  /* END PATH */
 
-    List<Card> listSeedCard = new ArrayList<>();
-    List<Card> listFertilizerCard = new ArrayList<>();
+    List<Item> listSeedCard = new ArrayList<>();
+    List<Item> listFertilizerCard = new ArrayList<>();
 
     public Shop() {
         setMaximumSize(new Dimension(800, 600));
@@ -196,7 +179,7 @@ public class Shop extends JPanel {
                 Point temp_point = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
                 add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(temp_point.getX(), temp_point.getY(), -1, -1), 0);
 
-                listFertilizerCard.add(new Card(1, type, temp_jlabel, temp_point));
+                listFertilizerCard.add(new Item(1, type, temp_jlabel, temp_point));
             }
         } else {
             listFertilizerCard.forEach((card) -> {
@@ -222,7 +205,7 @@ public class Shop extends JPanel {
                 Point temp_point = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
                 add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(temp_point.getX(), temp_point.getY(), -1, -1), 0);
 
-                listSeedCard.add(new Card(0, type, temp_jlabel, temp_point));
+                listSeedCard.add(new Item(0, type, temp_jlabel, temp_point));
             }
         } else {
             listSeedCard.forEach((card) -> {
@@ -377,8 +360,7 @@ class ReviewAmount extends JPanel {
 
             amount.setText(String.valueOf(newAmount));
             total.setText(STR_TOTAL + String.valueOf(newAmount * price));
-        }
-        
+        }        
     }
 
     private void minusClicked(MouseEvent evt) {

@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -25,6 +28,48 @@ public class SqlDataItem extends SqlData {
     private static final String SQL_SYNTAX_TYPE = "type";
     private static final String SQL_SYNTAX_AMOUNT = "amount";
 
+    public static List<JSONObject> getAllItem(int brand, int type) {
+        Statement statement = null;
+        ResultSet resultSet = null;
+        List<JSONObject> listItem = new ArrayList<>();
+        
+        try {
+            String query = "SELECT * FROM " + SQL_SYNTAX_TABLE + " WHERE " + SQL_SYNTAX_BRAND + "=" + brand + " AND " + SQL_SYNTAX_TYPE + "=" + type;
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            
+            if (!isEmptySet(resultSet)) {
+                do {                    
+                    JSONObject tempJSONObject = new JSONObject();
+                    tempJSONObject.put(SQL_SYNTAX_BRAND, resultSet.getInt(SQL_SYNTAX_BRAND));
+                    tempJSONObject.put(SQL_SYNTAX_TYPE, resultSet.getInt(SQL_SYNTAX_TYPE));
+                    tempJSONObject.put(SQL_SYNTAX_AMOUNT, resultSet.getInt(SQL_SYNTAX_AMOUNT));
+                    
+                    listItem.add(tempJSONObject);
+                } while (resultSet.next());
+            } else {
+                System.out.println("list item empty");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return listItem;
+    }
+    
     public static int getMoney() {
         Statement statement = null;
         ResultSet resultSet = null;

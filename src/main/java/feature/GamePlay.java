@@ -258,7 +258,12 @@ public class GamePlay extends JPanel {
     }
 
     private void bag_iconClicked(MouseEvent evt) {
-        System.out.println("ok bag");
+        ModuleManager.plugIn(Main.mainFrame, Main.bag, 0);
+        
+        pauseProcess();
+        
+        ModuleManager.revalidate(Main.mainFrame);
+        ModuleManager.repaint(Main.mainFrame);
     }
 
     private static long getCurrentTime() {

@@ -1,5 +1,6 @@
 package proc;
 
+import feature.Bag;
 import feature.MainFrame;
 import feature.GamePlay;
 import feature.Shop;
@@ -7,8 +8,6 @@ import feature.Menu;
 import feature.Basket;
 import proc_data.JsData;
 import proc_data.SqlData;
-import proc_data.SqlDataFarm;
-import proc_data.SqlDataItem;
 
 public class Main {
 
@@ -17,6 +16,7 @@ public class Main {
     public static Menu menu;
     public static GamePlay gamePlay;
     public static Shop shop;
+    public static Bag bag;
     public static Basket basket;
 
     private static final String JSONDATA_ID_PLANT = "jsdat\\id\\plant.json";
@@ -48,7 +48,7 @@ public class Main {
         menu = new Menu();
         gamePlay = new GamePlay();
         shop = new Shop();
+        bag = new Bag();
         basket = new Basket();
-
     }
 }
