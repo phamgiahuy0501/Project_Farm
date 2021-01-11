@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import obj.Item;
+import obj.Card;
 import proc.Main;
 import proc.ModuleManager;
 import proc_data.JsData;
@@ -56,8 +56,8 @@ public class Shop extends JPanel {
     /* END ICON */
  /* END PATH */
 
-    List<Item> listSeedCard = new ArrayList<>();
-    List<Item> listFertilizerCard = new ArrayList<>();
+    List<Card> listSeedCard = new ArrayList<>();
+    List<Card> listFertilizerCard = new ArrayList<>();
 
     public Shop() {
         setMaximumSize(new Dimension(800, 600));
@@ -75,6 +75,7 @@ public class Shop extends JPanel {
         add(fertilizer, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 150, -1, -1));
 
         initSeedCart();
+        
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 60, -1, -1));
 
@@ -110,8 +111,8 @@ public class Shop extends JPanel {
     private void backgroundClicked(MouseEvent evt) {
         clearReview();
 
-        ModuleManager.revalidate(Main.mainFrame);
-        ModuleManager.repaint(Main.mainFrame);
+        ModuleManager.revalidate(this);
+        ModuleManager.repaint(this);
     }
 
     private void seedClicked(MouseEvent evt) {
@@ -123,8 +124,8 @@ public class Shop extends JPanel {
         removeFertilizerCard();
         initSeedCart();
 
-        ModuleManager.revalidate(Main.mainFrame);
-        ModuleManager.repaint(Main.mainFrame);
+        ModuleManager.revalidate(this);
+        ModuleManager.repaint(this);
     }
 
     private void fertilizerClicked(MouseEvent evt) {
@@ -136,8 +137,8 @@ public class Shop extends JPanel {
         removeSeedCart();
         initFertilizerCard();
 
-        ModuleManager.revalidate(Main.mainFrame);
-        ModuleManager.repaint(Main.mainFrame);
+        ModuleManager.revalidate(this);
+        ModuleManager.repaint(this);
     }
 
     private void closeClicked(MouseEvent evt) {
@@ -179,7 +180,7 @@ public class Shop extends JPanel {
                 Point temp_point = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
                 add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(temp_point.getX(), temp_point.getY(), -1, -1), 0);
 
-                listFertilizerCard.add(new Item(1, type, temp_jlabel, temp_point));
+                listFertilizerCard.add(new Card(1, type, temp_jlabel, temp_point));
             }
         } else {
             listFertilizerCard.forEach((card) -> {
@@ -205,7 +206,7 @@ public class Shop extends JPanel {
                 Point temp_point = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
                 add(temp_jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(temp_point.getX(), temp_point.getY(), -1, -1), 0);
 
-                listSeedCard.add(new Item(0, type, temp_jlabel, temp_point));
+                listSeedCard.add(new Card(0, type, temp_jlabel, temp_point));
             }
         } else {
             listSeedCard.forEach((card) -> {
@@ -233,8 +234,8 @@ public class Shop extends JPanel {
 
         add(thisReviewAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(createPoint.getX(), createPoint.getY(), ReviewAmount.MY_WIDTH, ReviewAmount.MY_HEIGHT), 0);
 
-        ModuleManager.revalidate(Main.mainFrame);
-        ModuleManager.repaint(Main.mainFrame);
+        ModuleManager.revalidate(this);
+        ModuleManager.repaint(this);
     }
 
     private void clearReview() {

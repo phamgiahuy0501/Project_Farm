@@ -6,6 +6,7 @@
 package obj;
 
 import feature.GamePlay;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -35,9 +36,9 @@ public class Ground extends MyLabel {
         this.type = type;
         this.timeFinish = timeFinish;
         label.setLayout(new FlowLayout(FlowLayout.CENTER));
-        addTimeLable(timeLabel);
+        addSubLable(timeLabel);
         this.timeLabel.setVisible(false);
-
+        
         process = new Thread() {
             @Override
             public void run() {

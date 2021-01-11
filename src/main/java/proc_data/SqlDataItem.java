@@ -28,13 +28,13 @@ public class SqlDataItem extends SqlData {
     private static final String SQL_SYNTAX_TYPE = "type";
     private static final String SQL_SYNTAX_AMOUNT = "amount";
 
-    public static List<JSONObject> getAllItem(int brand, int type) {
+    public static List<JSONObject> getAllItem(int brand) {
         Statement statement = null;
         ResultSet resultSet = null;
         List<JSONObject> listItem = new ArrayList<>();
         
         try {
-            String query = "SELECT * FROM " + SQL_SYNTAX_TABLE + " WHERE " + SQL_SYNTAX_BRAND + "=" + brand + " AND " + SQL_SYNTAX_TYPE + "=" + type;
+            String query = "SELECT * FROM " + SQL_SYNTAX_TABLE + " WHERE " + SQL_SYNTAX_BRAND + "=" + brand;
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
             
@@ -185,5 +185,4 @@ public class SqlDataItem extends SqlData {
     private static boolean isEmptySet(ResultSet resultSet) throws SQLException {
         return !resultSet.next();
     }
-
 }

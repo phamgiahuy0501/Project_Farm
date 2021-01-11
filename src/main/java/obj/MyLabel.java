@@ -49,7 +49,7 @@ public class MyLabel {
         this.label = label;
     }
     
-    void addTimeLable(JLabel timeLabel) {
-        label.add(timeLabel);
+    void addSubLable(JLabel subLabel) {
+        label.add(subLabel);
     }
 }
