@@ -348,7 +348,11 @@ class ReviewAmount extends JPanel {
 
             verified();
 
+            GamePlay.moneyLaybel.setText(String.valueOf(SqlDataItem.getMoney()));
+            
             System.out.println("buy ok");
+            
+            
         }
     }
 

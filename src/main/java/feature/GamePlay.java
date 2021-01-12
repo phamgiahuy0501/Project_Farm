@@ -5,17 +5,21 @@
  */
 package feature;
 
+import java.awt.Color;
 import obj.Point;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.SwingConstants;
 import obj.Ground;
 import org.json.simple.JSONObject;
 import proc.Main;
@@ -58,6 +62,7 @@ public class GamePlay extends JPanel {
     JLabel bag_icon = new JLabel();
     JLabel shop_icon = new JLabel();
     JLabel open_basket = new JLabel();
+    public static JLabel moneyLaybel = new JLabel();
     JLabel back = new JLabel();
     JLabel volume = new JLabel();
 
@@ -71,6 +76,14 @@ public class GamePlay extends JPanel {
         setSize(new Dimension(800, 600));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        JLabel goldIcon = new JLabel();
+        goldIcon.setIcon(new ImageIcon("img\\game\\icon\\Coin-icon.png"));
+        
+        moneyLaybel.setHorizontalAlignment(SwingConstants.RIGHT);
+        moneyLaybel.setText(String.valueOf(SqlDataItem.getMoney()));
+        moneyLaybel.setForeground(Color.YELLOW);
+        moneyLaybel.setFont(new Font("", Font.BOLD, 18));
+        
         background.setIcon(new ImageIcon(PATH_BACKGROUND));
         bag_icon.setIcon(new ImageIcon(PATH_BAG));
         shop_icon.setIcon(new ImageIcon(PATH_SHOP));
@@ -83,7 +96,10 @@ public class GamePlay extends JPanel {
         add(volume, new org.netbeans.lib.awtextra.AbsoluteConstraints(715, 25, -1, -1));
         add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 25, -1, -1));
         add(open_basket, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
-
+        add(moneyLaybel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        add(goldIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 25, -1, -1));
+        
+        
         loadGround();
 
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
