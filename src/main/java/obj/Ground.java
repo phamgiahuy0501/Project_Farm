@@ -7,6 +7,7 @@ package obj;
 
 import feature.GamePlay;
 import java.awt.FlowLayout;
+import static java.lang.Thread.sleep;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -23,12 +24,11 @@ import proc_data.SqlDataItem;
  */
 public class Ground extends MyLabel {
 
-    int type;
-    long timeFinish;
+    int processType;
+    long processTimeFinish;
     Thread process;
     final JLabel timeLabel = new JLabel();
     public boolean processPause = false;
-
     public Ground() {
         super();
         process = null;
@@ -40,8 +40,8 @@ public class Ground extends MyLabel {
         addSubLable(timeLabel);
         this.timeLabel.setVisible(false);
         
-        this.type = type;
-        this.timeFinish = timeFinish;
+        processType = type;
+        processTimeFinish = timeFinish;
         
         process = new Thread() {
             @Override
@@ -49,9 +49,8 @@ public class Ground extends MyLabel {
                 try {
                     while (true) {
                         if (!processPause) {
-                            System.out.println(type);
-                            label.setIcon(new ImageIcon(JsData.getPathGround(type, GamePlay.calStage(timeFinish, type))));
-                            updateTimeLabel(GamePlay.calGrowthPercent(timeFinish, type));
+                            label.setIcon(new ImageIcon(JsData.getPathGround(processType, GamePlay.calStage(processTimeFinish, processType))));
+                            updateTimeLabel(GamePlay.calGrowthPercent(processTimeFinish, processType));
                         }
 
                         sleep(500);
@@ -81,19 +80,19 @@ public class Ground extends MyLabel {
     }
     
     public void harvest() {
-        if (ModulePlanting.isPlanting && isFree() && GamePlay.calGrowthPercent(timeFinish, type) < 100) {
+        if (ModulePlanting.isPlanting && isFree() && GamePlay.calGrowthPercent(processTimeFinish, processType) < 100) {
             return;
         }
         
         int amountHarvested = random(3, 5);
-        int amount = SqlDataItem.getAmountItem(3, type);
-        SqlDataItem.updateAmountItem(2, type, amountHarvested + amount);
+        int amount = SqlDataItem.getAmountItem(2, processType);
+        SqlDataItem.updateAmountItem(2, processType, amountHarvested + amount);
         
-        type = 0;
+        processType = 0;
     }
     
     private boolean isFree() {
-        return type == 0;
+        return processType == 0;
     }
     
     private int random(int min, int max) {
