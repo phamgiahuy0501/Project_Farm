@@ -36,7 +36,7 @@ public class Main {
         loadData();
         loadComponent();
         
-        ModuleManager.plugIn(mainFrame, gamePlay);
+        ModuleManager.plugIn(mainFrame, menu);
         mainFrame.setVisible(true);
     }
 

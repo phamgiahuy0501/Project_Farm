@@ -11,11 +11,8 @@ import static java.lang.Thread.sleep;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import org.json.simple.JSONObject;
 import proc.ModulePlanting;
 import proc_data.JsData;
-import proc_data.SqlData;
-import proc_data.SqlDataFarm;
 import proc_data.SqlDataItem;
 
 /**

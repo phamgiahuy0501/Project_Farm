@@ -92,6 +92,7 @@ public class JsData {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
 
     private static void loadPathsItemBag(String path) {
