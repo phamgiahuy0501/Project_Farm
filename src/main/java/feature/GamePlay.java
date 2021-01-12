@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import obj.Ground;
+import org.json.simple.JSONObject;
 import proc.Main;
 import proc.ModuleManager;
 import proc_data.JsData;
@@ -63,9 +64,7 @@ public class GamePlay extends JPanel {
     JLabel volume = new JLabel();
 
     boolean volume_status = true;
-    
-    public static int money;
-    
+
     List<Ground> listGround = new ArrayList<>();
 
     public GamePlay() {
@@ -87,8 +86,7 @@ public class GamePlay extends JPanel {
         add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 25, -1, -1));
         add(open_basket, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
 
-        SqlDataFarm.loadAllGround();
-        loadResource();
+        loadGround();
 
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -134,67 +132,53 @@ public class GamePlay extends JPanel {
         });
     }
 
-    public int getMoney() {
-        return money;
-    }
-    
     public void updateMoney(int amount) {
         SqlDataItem.updateMoney(amount);
-        System.out.println("Update money success");
-    }
-    
-    private void loadResource() {
-        loadGround();
-        money = SqlDataItem.getMoney();
     }
 
     private void loadGround() {
-        ResultSet data = SqlDataFarm.getAllGround();
-        int i = 0;
+        listGround.clear();
+        List<JSONObject> listGroundObject = SqlDataFarm.getAllGround();
 
-        try {
-            do {
-                int type = data.getInt(2);
-                long timeFinish = data.getLong(3);
-                int index = i;
-                JLabel tempJLabel = new JLabel();
-                
-                tempJLabel.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent evt) {
-                        groundClicked(evt, index);
-                    }
+        for(int i = 0; i < listGroundObject.size(); i++) {
+            
+            int type = (int) listGroundObject.get(i).get(SqlDataFarm.SQL_FARM_SYNTAX_TYPE);
+            long timeFinish = (long) listGroundObject.get(i).get(SqlDataFarm.SQL_FARM_SYNTAX_TIMEFINISH);
+            final int index = i;
+            JLabel tempJLabel = new JLabel();
 
-                    @Override
-                    public void mouseEntered(MouseEvent evt) {
-                        groundEntered(evt, index);
-                    }
+            tempJLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent evt) {
+                    groundClicked(evt, index);
+                }
 
-                    @Override
-                    public void mouseExited(MouseEvent evt) {
-                        groundExited(evt, index);
-                    }
-                });
+                @Override
+                public void mouseEntered(MouseEvent evt) {
+                    groundEntered(evt, index);
+                }
 
-                Point tempPoint = new Point(START.getX() + (i / NUMBER_GROUNDINROW) * DISTANCE_ROW_X - (i % NUMBER_GROUNDINROW) * STEP_X, START.getY() + (i / NUMBER_GROUNDINROW) * DISTANCE_ROW_Y + (i % NUMBER_GROUNDINROW) * STEP_Y);
-                
-                add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), GROUND_WIDTH, GROUND_HEIGHT));
+                @Override
+                public void mouseExited(MouseEvent evt) {
+                    groundExited(evt, index);
+                }
+            });
 
-                listGround.add(new Ground(type, timeFinish, tempJLabel, tempPoint));
-                ++i;
-            } while (data.next());
-        } catch (SQLException e) {
-            e.printStackTrace();
+            Point tempPoint = new Point(START.getX() + (index / NUMBER_GROUNDINROW) * DISTANCE_ROW_X - (index % NUMBER_GROUNDINROW) * STEP_X, START.getY() + (index / NUMBER_GROUNDINROW) * DISTANCE_ROW_Y + (index % NUMBER_GROUNDINROW) * STEP_Y);
+
+            add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), GROUND_WIDTH, GROUND_HEIGHT));
+
+            listGround.add(new Ground(type, timeFinish, tempJLabel, tempPoint));
         }
     }
-    
+
     public boolean isListGroundNull() {
         return listGround.isEmpty();
     }
 
     private void groundEntered(MouseEvent evt, int index) {
         Ground thisGround = listGround.get(index);
-        thisGround.showTimeLabel();   
+        thisGround.showTimeLabel();
     }
 
     private void groundExited(MouseEvent evt, int index) {
@@ -203,8 +187,10 @@ public class GamePlay extends JPanel {
     }
 
     private void groundClicked(MouseEvent evt, int index) {
-
-        System.out.println(index);
+        listGround.get(index).harvest();
+        SqlDataFarm.updateSpecificGround(index, 0, 0);
+        
+        System.out.println("harvested");
     }
 
     private void open_basketClicked(MouseEvent evt) {
@@ -237,18 +223,18 @@ public class GamePlay extends JPanel {
             ground.pauseProcess();
         });
     }
-    
+
     public void resumeProcess() {
         listGround.forEach((ground) -> {
             ground.resumeProcess();
         });
     }
-    
+
     private void shop_iconClicked(MouseEvent evt) {
         ModuleManager.plugIn(Main.mainFrame, Main.shop, 0);
-        
+
         pauseProcess();
-        
+
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }
@@ -259,9 +245,9 @@ public class GamePlay extends JPanel {
 
     private void bag_iconClicked(MouseEvent evt) {
         ModuleManager.plugIn(Main.mainFrame, Main.bag, 0);
-        
+
         pauseProcess();
-        
+
         ModuleManager.revalidate(Main.mainFrame);
         ModuleManager.repaint(Main.mainFrame);
     }
@@ -274,6 +260,9 @@ public class GamePlay extends JPanel {
     }
 
     public static float calGrowthPercent(long timeFinish, int typePlant) {
+        if (typePlant == 0) {
+            return 0;
+        }
         int timePlant = JsData.getTimePlant(JsData.getPlant(typePlant));
 
         return (float) (getCurrentTime() - (timeFinish - timePlant)) * 100 / timePlant;

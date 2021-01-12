@@ -16,8 +16,19 @@ import java.sql.SQLException;
 public class SqlData {
     
     static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
-    
+
     protected static Connection connection;
+
+    public static final String SQL_FARM_SYNTAX_TABLE = "farm";
+    public static final String SQL_FARM_SYNTAX_ID = "land_id";
+    public static final String SQL_FARM_SYNTAX_TYPE = "type_plant";
+    public static final String SQL_FARM_SYNTAX_TIMEFINISH = "date_finish";
+
+    public static final String SQL_ITEM_SYNTAX_TABLE = "item";
+    public static final String SQL_ITEM_SYNTAX_ID = "id";
+    public static final String SQL_ITEM_SYNTAX_BRAND = "brand_id";
+    public static final String SQL_ITEM_SYNTAX_TYPE = "type";
+    public static final String SQL_ITEM_SYNTAX_AMOUNT = "amount";
     
     public static void initConnection(String host, String user, String pass) {
         try {

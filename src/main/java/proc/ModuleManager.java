@@ -25,10 +25,6 @@ public class ModuleManager {
         }
     }
     
-    public static int getMoney(GamePlay gamePlay) {
-        return gamePlay.getMoney();
-    }
-    
     public static void updateMoney(GamePlay gamePlay, int amount) {
         gamePlay.updateMoney(amount);
     }

@@ -70,11 +70,11 @@ public class Bag extends JPanel {
         add(fertilizer, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 150, -1, -1));
         add(ingredient, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, -1));
 
-        initSeedItem();
-
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 60, -1, -1));
 
+        initSeedItem();
+        
         seed.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -112,41 +112,38 @@ public class Bag extends JPanel {
     }
 
     private void initSeedItem() {
-        if (listSeed.isEmpty()) {
+        listSeed.clear();
+        List<JSONObject> listSeedObject = SqlDataItem.getAllItem(0);
 
-            List<JSONObject> listSeedObject = SqlDataItem.getAllItem(0);
+        for (int i = 0; i < listSeedObject.size(); i++) {
+            int brand = (int) listSeedObject.get(i).get(SQL_SYNTAX_BRAND);
+            int type = (int) listSeedObject.get(i).get(SQL_SYNTAX_TYPE);
+            int amount = (int) listSeedObject.get(i).get(SQL_SYNTAX_AMOUNT);
 
-            for (int i = 0; i < listSeedObject.size(); i++) {
-                JLabel tempJLabel = new JLabel();
-
-                final int index = i;
-
-                tempJLabel.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent evt) {
-                        itemClicked(evt, index);
-                    }
-                });
-
-                int brand = (int) listSeedObject.get(i).get(SQL_SYNTAX_BRAND);
-                int type = (int) listSeedObject.get(i).get(SQL_SYNTAX_TYPE);
-                int amount = (int) listSeedObject.get(i).get(SQL_SYNTAX_AMOUNT);
-
-                Point tempPoint = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
-                add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), -1, -1));
-
-                listSeed.add(new Item(brand, type, tempJLabel, tempPoint));
+            if (amount <= 0) {
+                continue;
             }
 
-        } else {
-            listSeed.forEach(item -> {
-                item.visible(true);
+            JLabel tempJLabel = new JLabel();
+
+            final int index = i;
+
+            tempJLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent evt) {
+                    itemClicked(evt, index);
+                }
             });
+
+            Point tempPoint = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
+            add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), -1, -1), 0);
+
+            listSeed.add(new Item(brand, type, tempJLabel, tempPoint));
         }
     }
 
     private void itemClicked(MouseEvent evt, int index_list) {
-        
+
     }
 
     private void removeSeedItem() {
@@ -156,35 +153,36 @@ public class Bag extends JPanel {
     }
 
     private void initFertilizerItem() {
-        if (listFertilizer.isEmpty()) {
-            List<JSONObject> listFertilizerObject = SqlDataItem.getAllItem(1);
-            
-            for (int i = 0; i < listFertilizerObject.size(); i++) {
-                JLabel tempJLabel = new JLabel();
-                
-                final int index = i;
-                
-                tempJLabel.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent evt) {
-                        itemClicked(evt, index);
-                    }
-                });
+        listFertilizer.clear();
+        List<JSONObject> listFertilizerObject = SqlDataItem.getAllItem(1);
 
-                int brand = (int) listFertilizerObject.get(i).get(SQL_SYNTAX_BRAND);
-                int type = (int) listFertilizerObject.get(i).get(SQL_SYNTAX_TYPE);
-                int amount = (int) listFertilizerObject.get(i).get(SQL_SYNTAX_AMOUNT);
+        for (int i = 0; i < listFertilizerObject.size(); i++) {
 
-                Point tempPoint = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
-                add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), -1, -1));
+            int brand = (int) listFertilizerObject.get(i).get(SQL_SYNTAX_BRAND);
+            int type = (int) listFertilizerObject.get(i).get(SQL_SYNTAX_TYPE);
+            int amount = (int) listFertilizerObject.get(i).get(SQL_SYNTAX_AMOUNT);
 
-                listFertilizer.add(new Item(brand, type, tempJLabel, tempPoint));
+            if (amount <= 0) {
+                continue;
             }
-        } else {
-            listFertilizer.forEach(item -> {
-                item.visible(true);
+
+            JLabel tempJLabel = new JLabel();
+
+            final int index = i;
+
+            tempJLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent evt) {
+                    itemClicked(evt, index);
+                }
             });
+
+            Point tempPoint = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
+            add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), -1, -1), 0);
+
+            listFertilizer.add(new Item(brand, type, tempJLabel, tempPoint));
         }
+
     }
 
     private void removeFertilizerItem() {
@@ -194,34 +192,32 @@ public class Bag extends JPanel {
     }
 
     private void initIngredientItem() {
-        if (listIngredient.isEmpty()) {
-            List<JSONObject> listIngredientObject = SqlDataItem.getAllItem(2);
-            
-            for (int i = 0; i < listIngredientObject.size(); i++) {
-                JLabel tempJLabel = new JLabel();
-                
-                final int index = i;
-                
-                tempJLabel.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent evt) {
-                        itemClicked(evt, index);
-                    }
-                });
+        listIngredient.clear();
+        List<JSONObject> listIngredientObject = SqlDataItem.getAllItem(2);
 
-                int brand = (int) listIngredientObject.get(i).get(SQL_SYNTAX_BRAND);
-                int type = (int) listIngredientObject.get(i).get(SQL_SYNTAX_TYPE);
-                int amount = (int) listIngredientObject.get(i).get(SQL_SYNTAX_AMOUNT);
-
-                Point tempPoint = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
-                add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), -1, -1));
-
-                listIngredient.add(new Item(brand, type, tempJLabel, tempPoint));
+        for (int i = 0; i < listIngredientObject.size(); i++) {
+            int brand = (int) listIngredientObject.get(i).get(SQL_SYNTAX_BRAND);
+            int type = (int) listIngredientObject.get(i).get(SQL_SYNTAX_TYPE);
+            int amount = (int) listIngredientObject.get(i).get(SQL_SYNTAX_AMOUNT);
+            if (amount <= 0) {
+                continue;
             }
-        } else {
-            listIngredient.forEach(item -> {
-                item.visible(true);
+
+            JLabel tempJLabel = new JLabel();
+
+            final int index = i;
+
+            tempJLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent evt) {
+                    itemClicked(evt, index);
+                }
             });
+
+            Point tempPoint = new Point(START.getX() + (i % NUMBER_CARDINROW) * STEP_X, START.getY() + (i / NUMBER_CARDINROW) * STEP_Y);
+            add(tempJLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(tempPoint.getX(), tempPoint.getY(), -1, -1), 0);
+
+            listIngredient.add(new Item(brand, type, tempJLabel, tempPoint));
         }
     }
 
